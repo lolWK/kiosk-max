@@ -1,0 +1,26 @@
+.item {
+  background-color: #fcfeff;
+  width: 240px;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #eeeeee;
+  box-shadow: 0px 4px 4px rgba(51, 51, 51, 0.25);
+  border-radius: 17px;
+  margin-bottom: 60px;
+  padding: 19px 0 24px;
+  flex-basis: 45%;
+  cursor: pointer;
+}
+.item img {
+  width: 118px;
+  /* height: 127px; 사진 크기 나중에 수정하기*/
+  margin-bottom: 20px;
+}
+.item p {
+  font-size: 28px;
+}
+.item .name {
+  margin-bottom: 13px;
+}
