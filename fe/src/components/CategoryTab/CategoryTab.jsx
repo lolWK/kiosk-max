@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import styles from './CategoryTab.module.css';
 
-export default function CategoryTab({ categories, onTabSelect }) {
+export default function CategoryTab({ categories, onTabSelect, selectedTab }) {
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
   const [isDown, setIsDown] = useState(false);
@@ -58,6 +58,7 @@ export default function CategoryTab({ categories, onTabSelect }) {
           <li key={category.id}>
             <button
               type="button"
+              className={selectedTab === category.id ? styles.selectedTab : ''}
               onClick={() => handleTabClick(category.id)} // Pass the category ID to the handleTabClick function
             >
               {category.name}
