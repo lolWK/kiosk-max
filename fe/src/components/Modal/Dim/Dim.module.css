@@ -1,0 +1,9 @@
+.dim {
+  width: 900px;
+  height: 100vh;
+  margin: 0 auto;
+  background-color: #444444;
+  opacity: 0.5;
+  position: fixed;
+  top: 0;
+}

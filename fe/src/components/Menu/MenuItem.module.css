@@ -1,0 +1,27 @@
+.item {
+  background-color: #fcfeff;
+  width: 240px;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #eeeeee;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px,
+    rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  border-radius: 17px;
+  margin-bottom: 60px;
+  padding: 19px 0 24px;
+  flex-basis: 45%;
+  cursor: pointer;
+}
+.item img {
+  width: 118px;
+  height: 127px;
+  margin-bottom: 20px;
+}
+.item p {
+  font-size: 28px;
+}
+.item .name {
+  margin-bottom: 13px;
+}
