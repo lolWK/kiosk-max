@@ -8,7 +8,7 @@ const decaffein = [
     options: [
       {
         id: 1,
-        type: '사이즈',
+        type: 'size',
         value: [
           {
             id: 1,
@@ -26,7 +26,7 @@ const decaffein = [
       },
       {
         id: 2,
-        type: '온도',
+        type: 'temperature',
         value: [
           {
             id: 1,

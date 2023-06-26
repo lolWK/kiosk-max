@@ -1,49 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styles from './Info.module.css';
 
 export default function Info({ selectedItem }) {
-  const [selectedSize, setselectedSize] = useState(
-    selectedItem.options[0].value[0].id
-  );
-  const [selectedTemperature, setselectedTemperature] = useState(
-    selectedItem.options[1].value[0].id
-  );
-
-  useEffect(() => {
-    console.log(selectedSize);
-  }, [selectedSize]);
-
-  useEffect(() => {
-    console.log(selectedTemperature);
-  }, [selectedTemperature]);
-
-  const handleSelectedSize = (id) => {
-    setselectedSize(id);
-  };
-
-  const handleSelectedTemperature = (id) => {
-    setselectedTemperature(id);
-  };
-
   return (
     <div className={styles.info}>
-      <Menu
-        img={selectedItem.img}
-        name={selectedItem.name}
-        price={selectedItem.price}
-      />
-      <Options
-        options={selectedItem.options}
-        selectedSize={selectedSize}
-        selectedTemperature={selectedTemperature}
-        handleSelectedSize={handleSelectedSize}
-        handleSelectedTemperature={handleSelectedTemperature}
-      />
+      <Menu selectedItem={selectedItem} />
+      <Options options={selectedItem.options} />
     </div>
   );
 }
 
-function Menu({ img, name, price }) {
+function Menu({ selectedItem }) {
+  const { img, name, price } = selectedItem;
+
   return (
     <div className={styles.menu}>
       <img src={img} alt={name} />
@@ -53,36 +22,29 @@ function Menu({ img, name, price }) {
   );
 }
 
-function Options({
-  options,
-  selectedSize,
-  selectedTemperature,
-  handleSelectedSize,
-  handleSelectedTemperature,
-}) {
-  const [count, setCount] = useState(1);
+function Options({ options }) {
+  const size = options.find((option) => option.type === 'size');
+  const temperature = options.find((option) => option.type === 'temperature');
 
   return (
     <div className={styles.options}>
-      <Size
-        details={options[0].value}
-        selectedSize={selectedSize}
-        handleSelectedSize={handleSelectedSize}
-      />
-      <Temperature
-        details={options[1].value}
-        selectedTemperature={selectedTemperature}
-        handleSelectedTemperature={handleSelectedTemperature}
-      />
-      <Count count={count} setCount={setCount} />
+      <Size sizeList={size.value} />
+      <Temperature TemperatureList={temperature.value} />
+      <Count />
     </div>
   );
 }
 
-function Size({ details, selectedSize, handleSelectedSize }) {
+function Size({ sizeList }) {
+  const [selectedSize, setselectedSize] = useState(sizeList[0].id);
+
+  const handleSelectedSize = (id) => {
+    setselectedSize(id);
+  };
+
   return (
     <div className={styles.size}>
-      {details.map((option) => (
+      {sizeList.map((option) => (
         <button
           className={selectedSize === option.id ? styles.selectedSize : ''}
           key={option.id}
@@ -96,14 +58,18 @@ function Size({ details, selectedSize, handleSelectedSize }) {
   );
 }
 
-function Temperature({
-  details,
-  selectedTemperature,
-  handleSelectedTemperature,
-}) {
+function Temperature({ TemperatureList }) {
+  const [selectedTemperature, setselectedTemperature] = useState(
+    TemperatureList[0].id
+  );
+
+  const handleSelectedTemperature = (id) => {
+    setselectedTemperature(id);
+  };
+
   return (
     <div className={styles.temperature}>
-      {details.map((option) => (
+      {TemperatureList.map((option) => (
         <button
           className={
             selectedTemperature === option.id ? styles.selectedTemperature : ''
@@ -119,14 +85,16 @@ function Temperature({
   );
 }
 
-function Count({ count, setCount }) {
-  const handleIncrement = () => {
+function Count() {
+  const [count, setCount] = useState(1);
+
+  const handleCountIncrement = () => {
     if (count < 99) {
       setCount(count + 1);
     }
   };
 
-  const handleDecrement = () => {
+  const handleCountDecrement = () => {
     if (count > 1) {
       setCount(count - 1);
     }
@@ -134,13 +102,13 @@ function Count({ count, setCount }) {
 
   return (
     <div className={styles.counter}>
-      <button type="button" onClick={handleDecrement}>
+      <button type="button" onClick={handleCountDecrement}>
         -
       </button>
       <div>
         <p className={styles.count}>{count}</p>
       </div>
-      <button type="button" onClick={handleIncrement}>
+      <button type="button" onClick={handleCountIncrement}>
         +
       </button>
     </div>

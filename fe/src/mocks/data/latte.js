@@ -3,38 +3,38 @@ const latteDrinks = [
     id: 1,
     type: 'latte',
     name: '라떼',
-    img: 'https://cdn.imweb.me/upload/S2022012027a2ef95d300f/f6224ed0b663d.png',
+    img: 'https://pngimg.com/uploads/cup/cup_PNG1996.png',
     price: 4000,
     options: [
       {
         id: 1,
-        type: '사이즈',
+        type: 'size',
         value: [
           {
             id: 1,
-            detail: 'big',
+            detail: 'S',
           },
           {
             id: 2,
-            detail: 'medium',
+            detail: 'M',
           },
           {
             id: 3,
-            detail: 'small',
+            detail: 'L',
           },
         ],
       },
       {
         id: 2,
-        type: '온도',
+        type: 'temperature',
         value: [
           {
             id: 1,
-            detail: 'hot',
+            detail: 'Hot',
           },
           {
             id: 2,
-            detail: 'cold',
+            detail: 'Ice',
           },
         ],
       },
@@ -44,38 +44,38 @@ const latteDrinks = [
     id: 2,
     type: 'latte',
     name: '달고나라떼',
-    img: 'https://cdn.imweb.me/upload/S2022012027a2ef95d300f/f6224ed0b663d.png',
+    img: 'https://pngimg.com/uploads/cup/cup_PNG1996.png',
     price: 5000,
     options: [
       {
         id: 1,
-        type: '사이즈',
+        type: 'size',
         value: [
           {
             id: 1,
-            detail: 'big',
+            detail: 'S',
           },
           {
             id: 2,
-            detail: 'medium',
+            detail: 'M',
           },
           {
             id: 3,
-            detail: 'small',
+            detail: 'L',
           },
         ],
       },
       {
         id: 2,
-        type: '온도',
+        type: 'temperature',
         value: [
           {
             id: 1,
-            detail: 'hot',
+            detail: 'Hot',
           },
           {
             id: 2,
-            detail: 'cold',
+            detail: 'Ice',
           },
         ],
       },

@@ -16,7 +16,7 @@
 }
 .item img {
   width: 118px;
-  /* height: 127px; 사진 크기 나중에 수정하기*/
+  height: 127px;
   margin-bottom: 20px;
 }
 .item p {

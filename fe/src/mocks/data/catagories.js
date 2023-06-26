@@ -5,7 +5,7 @@ const coffeeDrinks = [
   },
   {
     id: 'latte',
-    name: '라뗴',
+    name: '라떼',
   },
   {
     id: 'juice',

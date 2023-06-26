@@ -8,7 +8,7 @@ const coffeeDrinks = [
     options: [
       {
         id: 1,
-        type: '사이즈',
+        type: 'size',
         value: [
           {
             id: 1,
@@ -26,7 +26,7 @@ const coffeeDrinks = [
       },
       {
         id: 2,
-        type: '온도',
+        type: 'temperature',
         value: [
           {
             id: 1,
@@ -49,33 +49,62 @@ const coffeeDrinks = [
     options: [
       {
         id: 1,
-        type: '사이즈',
+        type: 'size',
         value: [
           {
             id: 1,
-            detail: 'big',
+            detail: 'S',
           },
           {
             id: 2,
-            detail: 'medium',
+            detail: 'M',
           },
           {
             id: 3,
-            detail: 'small',
+            detail: 'L',
           },
         ],
       },
       {
         id: 2,
-        type: '온도',
+        type: 'temperature',
         value: [
           {
             id: 1,
-            detail: 'hot',
+            detail: 'Ice',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 3,
+    type: 'coffee',
+    name: '에스프레소',
+    img: 'https://pngimg.com/uploads/coffee_beans/small/coffee_beans_PNG97301.png',
+    price: 3000,
+    options: [
+      {
+        id: 1,
+        type: 'size',
+        value: [
+          {
+            id: 1,
+            detail: 'one',
           },
           {
             id: 2,
-            detail: 'cold',
+            detail: 'two',
+          },
+        ],
+      },
+      {
+        id: 2,
+        type: 'temperature',
+        value: [
+          {
+            id: 1,
+            detail: 'Hot',
           },
         ],
       },
