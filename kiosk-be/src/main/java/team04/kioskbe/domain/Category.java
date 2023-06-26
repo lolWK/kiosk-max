@@ -1,10 +1,5 @@
 package team04.kioskbe.domain;
 
-import team04.kioskbe.Drink.CategoryResponse;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public enum Category {
 
     COFFEE("coffee", "커피"),
@@ -13,8 +8,8 @@ public enum Category {
     JUICE("juice", "쥬스"),
     DECAFFEINE("decaffeine", "디카페인");
 
-    private String id;
-    private String name;
+    private final String id;
+    private final String name;
 
     Category(String id, String name) {
         this.id = id;
@@ -27,13 +22,5 @@ public enum Category {
 
     public String getName() {
         return name;
-    }
-
-    public static List<CategoryResponse> getCategoryList(){
-        List<CategoryResponse> list = new ArrayList<>();
-        for(Category category : Category.values()){
-            list.add(new CategoryResponse(category.id, category.name));
-        }
-        return list;
     }
 }

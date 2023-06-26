@@ -14,7 +14,7 @@ public class DrinkController {
         this.drinkService = drinkService;
     }
 
-    @GetMapping("/Drinks/Categories")
+    @GetMapping("/drinks/categories")
     public List<CategoryResponse> getCategories() {
         return drinkService.getCategories();
     }
