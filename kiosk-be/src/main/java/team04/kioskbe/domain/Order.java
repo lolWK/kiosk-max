@@ -1,4 +1,4 @@
-package java.team04.kioskbe.domain;
+package team04.kioskbe.domain;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

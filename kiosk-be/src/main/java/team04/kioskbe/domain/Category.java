@@ -1,4 +1,4 @@
-package java.team04.kioskbe.domain;
+package team04.kioskbe.domain;
 
 public enum Category {
 
