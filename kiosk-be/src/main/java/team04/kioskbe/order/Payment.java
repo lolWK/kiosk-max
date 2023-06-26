@@ -1,13 +1,13 @@
-package team04.kioskbe.domain;
+package team04.kioskbe.order;
 
 public enum Payment {
 
     CARD("card", "카드결제", "url1"),
     CASH("cash", "현금결제", "url2");
 
-    private String id;
-    private String name;
-    private String img;
+    private final String id;
+    private final String name;
+    private final String img;
 
     Payment(String id, String name, String img) {
         this.id = id;
@@ -26,4 +26,9 @@ public enum Payment {
     public String getImg() {
         return img;
     }
+
+    public static Payment from(String type) {
+        return type.equals(CARD.id) ? CARD : CASH;
+    }
+
 }

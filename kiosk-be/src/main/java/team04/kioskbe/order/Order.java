@@ -1,4 +1,4 @@
-package team04.kioskbe.domain;
+package team04.kioskbe.order;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -6,9 +6,9 @@ import java.time.LocalTime;
 public class Order {
 
     private Long id;
-    private int totalAmount;
-    private int receiveAmount;
-    private Payment payment;
+    private final int totalAmount;
+    private final int receivedAmount;
+    private final Payment payment;
     private LocalDate orderDate;
     private LocalTime orderTime;
 
@@ -20,8 +20,8 @@ public class Order {
         return totalAmount;
     }
 
-    public int getReceiveAmount() {
-        return receiveAmount;
+    public int getReceivedAmount() {
+        return receivedAmount;
     }
 
     public Payment getPayment() {
@@ -35,4 +35,5 @@ public class Order {
     public LocalTime getOrderTime() {
         return orderTime;
     }
+
 }
