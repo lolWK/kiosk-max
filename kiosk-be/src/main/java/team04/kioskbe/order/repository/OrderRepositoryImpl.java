@@ -1,10 +1,12 @@
-package team04.kioskbe.order;
+package team04.kioskbe.order.repository;
 
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
+import team04.kioskbe.order.domain.Order;
+import team04.kioskbe.order.domain.Payment;
 
 import javax.sql.DataSource;
 import java.util.Map;
@@ -25,7 +27,7 @@ public class OrderRepositoryImpl implements OrderRepository {
 
         String sql = "INSERT INTO order_info (payment, total_amount, received_amount) VALUES (:payment, :total_amount, :received_amount);";
 
-        Map<String, Object> params = Map.of("payment", order.getPayment().getId(), "total_amount", order.getTotalAmount(), "received_amount", order.getReceivedAmount());
+        Map<String, Object> params = Map.of("payment", order.getPayment().name(), "total_amount", order.getTotalAmount(), "received_amount", order.getReceivedAmount());
 
         jdbcTemplate.update(sql, new MapSqlParameterSource(params), keyHolder);
 

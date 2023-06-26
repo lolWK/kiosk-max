@@ -1,10 +1,12 @@
-package team04.kioskbe.order;
+package team04.kioskbe.order.repository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import team04.kioskbe.order.domain.Order;
+import team04.kioskbe.order.domain.Payment;
 
 import javax.sql.DataSource;
 

@@ -1,4 +1,6 @@
-package team04.kioskbe.order;
+package team04.kioskbe.order.repository;
+
+import team04.kioskbe.order.domain.Order;
 
 public interface OrderRepository {
 

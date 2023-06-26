@@ -1,4 +1,4 @@
-package team04.kioskbe.order;
+package team04.kioskbe.order.domain;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
