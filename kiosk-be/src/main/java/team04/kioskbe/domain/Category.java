@@ -8,8 +8,8 @@ public enum Category {
     JUICE("juice", "쥬스"),
     DECAFFEINE("decaffeine", "디카페인");
 
-    private String id;
-    private String name;
+    private final String id;
+    private final String name;
 
     Category(String id, String name) {
         this.id = id;
