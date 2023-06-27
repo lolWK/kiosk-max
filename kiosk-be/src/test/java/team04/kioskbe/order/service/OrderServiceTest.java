@@ -12,7 +12,9 @@ import team04.kioskbe.order.domain.Order;
 import team04.kioskbe.order.domain.OrderDrink;
 import team04.kioskbe.order.domain.Payment;
 import team04.kioskbe.order.repository.OrderRepository;
+import team04.kioskbe.order.service.dto.OrderDrinkResponse;
 import team04.kioskbe.order.service.dto.OrderRequest;
+import team04.kioskbe.order.service.dto.OrderResponse;
 
 import javax.sql.DataSource;
 import java.util.Collections;
@@ -77,6 +79,34 @@ class OrderServiceTest {
                 () -> assertThat(findOrder.getReceivedAmount()).isEqualTo(30000),
                 () -> assertThat(findOrder.getPayment()).isEqualTo(Payment.CASH),
                 () -> assertThat(findOrder.getDrinks()).containsExactlyInAnyOrder(orderDrink1, orderDrink2));
+    }
+
+    @Test
+    @DisplayName("findOrderById(): 주문 번호로 조회하여 영수증 정보를 반환한다.")
+    void findOrderById() {
+        // given
+        String drinks = "SELECT id FROM drink";
+        List<Long> drinksId = jdbcTemplate.queryForList(drinks, Collections.emptyMap(), Long.class);
+
+        String options = "SELECT id FROM drink_option";
+        List<Long> optionsId = jdbcTemplate.queryForList(options, Collections.emptyMap(), Long.class);
+
+        OrderDrink orderDrink1 = new OrderDrink(drinksId.get(0), 5, 20000, optionsId);
+        OrderDrink orderDrink2 = new OrderDrink(drinksId.get(1), 2, 10000, optionsId);
+
+        Order order = new Order(30000, 30000, Payment.CASH, List.of(orderDrink1, orderDrink2));
+
+        long orderId = orderRepository.save(order);
+
+        // when
+        OrderResponse orderById = orderService.findOrderById(orderId);
+
+        // then
+        assertAll(() -> assertThat(orderById.getTotalAmount()).isEqualTo(30000),
+                () -> assertThat(orderById.getReceivedAmount()).isEqualTo(30000),
+                () -> assertThat(orderById.getPayment()).isEqualTo(Payment.CASH.getName()),
+                () -> assertThat(orderById.getChange()).isEqualTo(0),
+                () -> assertThat(orderById.getDrinks()).containsExactlyInAnyOrder(OrderDrinkResponse.from(orderDrink1), OrderDrinkResponse.from(orderDrink2)));
     }
 
 }
