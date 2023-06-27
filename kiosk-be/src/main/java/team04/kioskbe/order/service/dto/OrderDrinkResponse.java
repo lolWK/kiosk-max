@@ -9,10 +9,13 @@ import java.util.stream.Collectors;
 public class OrderDrinkResponse {
 
     private String name;
-    private final int quantity;
+    private int quantity;
 
     public OrderDrinkResponse(final int quantity) {
         this.quantity = quantity;
+    }
+
+    public OrderDrinkResponse() {
     }
 
     public static List<OrderDrinkResponse> of(List<OrderDrink> drinks) {
@@ -21,6 +24,14 @@ public class OrderDrinkResponse {
 
     public static OrderDrinkResponse from(OrderDrink orderDrink) {
         return new OrderDrinkResponse(orderDrink.getQuantity());
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getQuantity() {
+        return quantity;
     }
 
     @Override

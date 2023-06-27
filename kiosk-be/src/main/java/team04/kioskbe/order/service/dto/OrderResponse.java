@@ -7,11 +7,14 @@ import java.util.List;
 public class OrderResponse {
 
     private long dailyOrderId;
-    private final List<OrderDrinkResponse> drinks;
-    private final String payment;
-    private final int receivedAmount;
-    private final int totalAmount;
-    private final int change;
+    private List<OrderDrinkResponse> drinks;
+    private String payment;
+    private int receivedAmount;
+    private int totalAmount;
+    private int change;
+
+    public OrderResponse() {
+    }
 
     public OrderResponse(List<OrderDrinkResponse> drinks, String payment, int receivedAmount, int totalAmount, int change) {
         this.drinks = drinks;

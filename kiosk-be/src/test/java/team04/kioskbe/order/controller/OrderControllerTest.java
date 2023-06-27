@@ -11,8 +11,10 @@ import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.transaction.annotation.Transactional;
 import team04.kioskbe.order.domain.OrderDrink;
 import team04.kioskbe.order.domain.Payment;
+import team04.kioskbe.order.service.OrderService;
 import team04.kioskbe.order.service.dto.OrderRequest;
 
 import java.util.Collections;
@@ -22,9 +24,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
+@Transactional
 @SpringBootTest
 class OrderControllerTest {
 
@@ -34,6 +38,8 @@ class OrderControllerTest {
     ObjectMapper objectMapper;
     @Autowired
     NamedParameterJdbcTemplate jdbcTemplate;
+    @Autowired
+    OrderService orderService;
 
     @Test
     @DisplayName("getPayments(): 결제 목록을 요청하면 JSON 형식으로 반환한다.")
@@ -49,7 +55,7 @@ class OrderControllerTest {
 
     @Test
     @DisplayName("saveOrder(): 주문 요청을 처리하고 Location 헤더에 리다이렉트 url을 담아서 반환한다.")
-    void test() throws Exception {
+    void saveOrder() throws Exception {
         // given
         String drinks = "SELECT id FROM drink";
         List<Long> drinksId = jdbcTemplate.queryForList(drinks, Collections.emptyMap(), Long.class);
@@ -71,6 +77,37 @@ class OrderControllerTest {
                 .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(header().exists(HttpHeaders.LOCATION));
+    }
+
+    @Test
+    @DisplayName("findOrderById(): ")
+    void findOrderById() throws Exception {
+        // given
+        String drinks = "SELECT id FROM drink";
+        List<Long> drinksId = jdbcTemplate.queryForList(drinks, Collections.emptyMap(), Long.class);
+
+        String options = "SELECT id FROM drink_option";
+        List<Long> optionsId = jdbcTemplate.queryForList(options, Collections.emptyMap(), Long.class);
+
+        OrderDrink orderDrink1 = new OrderDrink(drinksId.get(0), 5, 20000, optionsId);
+        OrderDrink orderDrink2 = new OrderDrink(drinksId.get(1), 2, 10000, optionsId);
+
+        OrderRequest order = new OrderRequest(30000, 30000, Payment.CASH.name(), List.of(orderDrink1, orderDrink2));
+
+        // when
+        long orderId = orderService.save(order);
+
+        // then
+        mockMvc.perform(get("/orders/" + orderId))
+                .andExpect(jsonPath("dailyOrderId").exists())
+                .andExpect(jsonPath("drinks").isArray())
+                .andExpect(jsonPath("drinks.*.name").exists())
+                .andExpect(jsonPath("drinks.*.quantity").exists())
+                .andExpect(jsonPath("payment").value(Payment.CASH.getName()))
+                .andExpect(jsonPath("receivedAmount").value(30000))
+                .andExpect(jsonPath("totalAmount").value(30000))
+                .andExpect(jsonPath("change").value(0))
+                .andDo(print());
     }
 
 }
