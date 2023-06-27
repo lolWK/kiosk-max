@@ -20,4 +20,12 @@ public class OptionResponse {
         }
         return list;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public List<OptionValue> getValues() {
+        return values;
+    }
 }
