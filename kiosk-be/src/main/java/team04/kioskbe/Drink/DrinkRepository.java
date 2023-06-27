@@ -23,11 +23,15 @@ public class DrinkRepository {
     }
 
     public List<Drink> findByCategory(String category) {
-        String sql = "SELECT d.id, d.name, d.img, d.price, do.type, do.value, do.id option_id " +
+        String sql = "SELECT d.id, d.name, d.img, d.price, do.type, do.value, do.id AS option_id, IFNULL(SUM(od.quantity), 0) AS total_sold_quantity " +
                 "FROM drink d " +
                 "LEFT JOIN available_option ao ON d.id = ao.drink_id " +
                 "LEFT JOIN drink_option do ON ao.option_id = do.id " +
-                "WHERE d.type = :category";
+                "LEFT JOIN order_drink od ON d.id = od.drink_id " +
+                "LEFT JOIN order_info oi ON od.order_id = oi.id AND oi.order_date = CURDATE() " +
+                "WHERE d.type = :category " +
+                "GROUP BY d.id, d.name, d.img, d.price, do.type, do.value, do.id " +
+                "ORDER BY total_sold_quantity DESC";
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("category", category);
@@ -51,7 +55,7 @@ public class DrinkRepository {
                 Drink drink = drinkMap.get(id);
 
                 long optionId = rs.getLong("option_id");
-                if(optionId != 0){
+                if (optionId != 0) {
                     drink.getOptions().add(new Option(optionId,
                             rs.getString("type"), rs.getString("value")));
                 }
