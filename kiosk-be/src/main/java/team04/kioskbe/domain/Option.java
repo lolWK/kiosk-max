@@ -2,9 +2,9 @@ package team04.kioskbe.domain;
 
 public class Option {
 
-    private Long id;
-    private String type;
-    private String value;
+    private final Long id;
+    private final String type;
+    private final String value;
 
     public Option(Long id, String type, String value) {
         this.id = id;
