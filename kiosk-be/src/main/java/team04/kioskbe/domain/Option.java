@@ -6,6 +6,12 @@ public class Option {
     private String type;
     private String value;
 
+    public Option(Long id, String type, String value) {
+        this.id = id;
+        this.type = type;
+        this.value = value;
+    }
+
     public Long getId() {
         return id;
     }
