@@ -8,12 +8,16 @@ import java.util.List;
 
 public class OrderRequest {
 
-    private final int totalAmount;
-    private final int receivedAmount;
-    private final Payment payment;
-    private final List<OrderDrink> drinks;
+    private int totalAmount;
+    private int receivedAmount;
+    private String payment;
+    private List<OrderDrink> drinks;
 
-    public OrderRequest(final int totalAmount, final int receivedAmount, final Payment payment, final List<OrderDrink> drinks) {
+    public OrderRequest() {
+
+    }
+
+    public OrderRequest(final int totalAmount, final int receivedAmount, String payment, final List<OrderDrink> drinks) {
         this.totalAmount = totalAmount;
         this.receivedAmount = receivedAmount;
         this.payment = payment;
@@ -21,7 +25,22 @@ public class OrderRequest {
     }
 
     public Order toEntity() {
-        return new Order(totalAmount, receivedAmount, payment, drinks);
+        return new Order(totalAmount, receivedAmount, Payment.from(payment), drinks);
     }
 
+    public int getTotalAmount() {
+        return totalAmount;
+    }
+
+    public int getReceivedAmount() {
+        return receivedAmount;
+    }
+
+    public String getPayment() {
+        return payment;
+    }
+
+    public List<OrderDrink> getDrinks() {
+        return drinks;
+    }
 }

@@ -1,12 +1,17 @@
 package team04.kioskbe.order.controller;
 
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import team04.kioskbe.order.domain.Payment;
 import team04.kioskbe.order.service.OrderService;
+import team04.kioskbe.order.service.dto.OrderRequest;
 
+import java.net.URI;
 import java.util.List;
 
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -22,6 +27,12 @@ public class OrderController {
     @GetMapping("/orders/payments")
     public List<Payment> getPayments() {
         return orderService.getPayments();
+    }
+
+    @PostMapping("/orders")
+    public ResponseEntity<Void> saveOrder(@RequestBody OrderRequest orderRequest) {
+        long saved = orderService.save(orderRequest);
+        return ResponseEntity.created(URI.create("/orders/" + saved)).build();
     }
 
 }

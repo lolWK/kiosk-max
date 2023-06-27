@@ -1,16 +1,28 @@
 package team04.kioskbe.order.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import team04.kioskbe.order.domain.OrderDrink;
+import team04.kioskbe.order.domain.Payment;
+import team04.kioskbe.order.service.dto.OrderRequest;
+
+import java.util.Collections;
+import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -18,17 +30,47 @@ class OrderControllerTest {
 
     @Autowired
     MockMvc mockMvc;
+    @Autowired
+    ObjectMapper objectMapper;
+    @Autowired
+    NamedParameterJdbcTemplate jdbcTemplate;
 
     @Test
     @DisplayName("getPayments(): 결제 목록을 요청하면 JSON 형식으로 반환한다.")
     void getPayments() throws Exception {
         // given when then
         mockMvc.perform(get("/orders/payments").accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("*.name").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("*.img").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("*").isArray())
                 .andDo(print());
+    }
+
+    @Test
+    @DisplayName("saveOrder(): 주문 요청을 처리하고 Location 헤더에 리다이렉트 url을 담아서 반환한다.")
+    void test() throws Exception {
+        // given
+        String drinks = "SELECT id FROM drink";
+        List<Long> drinksId = jdbcTemplate.queryForList(drinks, Collections.emptyMap(), Long.class);
+
+        String options = "SELECT id FROM drink_option";
+        List<Long> optionsId = jdbcTemplate.queryForList(options, Collections.emptyMap(), Long.class);
+
+        OrderDrink orderDrink1 = new OrderDrink(drinksId.get(0), 5, 20000, optionsId);
+        OrderDrink orderDrink2 = new OrderDrink(drinksId.get(1), 2, 10000, optionsId);
+
+        OrderRequest order = new OrderRequest(30000, 30000, Payment.CASH.name(), List.of(orderDrink1, orderDrink2));
+
+        // when then
+        mockMvc.perform(post("/orders")
+                .param("payments", "cash")
+                .content(objectMapper.writeValueAsString(order))
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isCreated())
+                .andExpect(header().exists(HttpHeaders.LOCATION));
     }
 
 }
