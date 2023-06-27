@@ -23,7 +23,8 @@ public class DrinkRepository {
     }
 
     public List<Drink> findByCategory(String category) {
-        String sql = "SELECT d.id, d.name, d.img, d.price, do.type, do.value, do.id AS option_id, IFNULL(SUM(od.quantity), 0) AS total_sold_quantity " +
+        String sql = "SELECT d.id, d.name, d.img, d.price, do.type, do.value, do.id AS option_id, IFNULL(SUM(od.quantity), 0) AS daily_sold_quantity, " +
+                "(SELECT IFNULL(SUM(quantity), 0) FROM order_drink WHERE drink_id = d.id) AS total_sold_quantity " +
                 "FROM drink d " +
                 "LEFT JOIN available_option ao ON d.id = ao.drink_id " +
                 "LEFT JOIN drink_option do ON ao.option_id = do.id " +
@@ -31,7 +32,7 @@ public class DrinkRepository {
                 "LEFT JOIN order_info oi ON od.order_id = oi.id AND oi.order_date = CURDATE() " +
                 "WHERE d.type = :category " +
                 "GROUP BY d.id, d.name, d.img, d.price, do.type, do.value, do.id " +
-                "ORDER BY total_sold_quantity DESC";
+                "ORDER BY daily_sold_quantity DESC";
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("category", category);
@@ -48,6 +49,7 @@ public class DrinkRepository {
                             .img(rs.getString("img"))
                             .price(rs.getInt("price"))
                             .category(Category.findCategory(category))
+                            .totalQuantity(rs.getInt("total_sold_quantity"))
                             .build();
                     drinkMap.put(id, newDrink);
                     drinkList.add(newDrink);

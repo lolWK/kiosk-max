@@ -9,6 +9,7 @@ public class Drink {
     private final String name;
     private final String img;
     private final int price;
+    private final int totalQuantity;
     private final Category category;
     private final List<Option> options = new ArrayList<>();
 
@@ -18,6 +19,7 @@ public class Drink {
         this.img = builder.img;
         this.price = builder.price;
         this.category = builder.category;
+        this.totalQuantity = builder.totalQuantity;
     }
 
     public static Builder builder() {
@@ -48,12 +50,17 @@ public class Drink {
         return options;
     }
 
+    public int getTotalQuantity() {
+        return totalQuantity;
+    }
+
     public static class Builder {
         private Long id;
         private String name;
         private String img;
         private int price;
         private Category category;
+        private int totalQuantity;
 
         public Builder id(Long id) {
             this.id = id;
@@ -77,6 +84,11 @@ public class Drink {
 
         public Builder category(Category category) {
             this.category = category;
+            return this;
+        }
+
+        public Builder totalQuantity(int totalQuantity) {
+            this.totalQuantity = totalQuantity;
             return this;
         }
 
