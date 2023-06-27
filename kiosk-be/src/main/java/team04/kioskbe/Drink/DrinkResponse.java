@@ -17,7 +17,7 @@ public class DrinkResponse {
     private final Category category;
     private final List<OptionResponse> options;
 
-    public DrinkResponse(Long id, String name, String img, int price, Category category, List<Option> options) {
+    private DrinkResponse(Long id, String name, String img, int price, Category category, List<Option> options) {
         this.id = id;
         this.name = name;
         this.img = img;
@@ -35,7 +35,8 @@ public class DrinkResponse {
         Map<String, List<OptionValue>> map = new HashMap<>();
         for (Option option : options) {
             OptionValue optionValue = new OptionValue(option.getId(), option.getValue());
-            map.getOrDefault(option.getType(), new ArrayList<>()).add(optionValue);
+            map.put(option.getType(), map.getOrDefault(option.getType(), new ArrayList<>()));
+            map.get(option.getType()).add(optionValue);
         }
         return map;
     }
