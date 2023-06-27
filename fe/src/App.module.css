@@ -144,4 +144,5 @@ body {
   width: 900px;
   height: 100vh;
   background-color: #eeeeee;
+  position: relative;
 }

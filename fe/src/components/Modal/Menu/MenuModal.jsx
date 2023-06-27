@@ -1,14 +1,43 @@
-// import { useState } from 'react';
+import { useState } from 'react';
 import styles from './MenuModal.module.css';
 import Info from './Info/Info';
 import Decision from './Decision/Decision';
 
-export default function MenuModal({ selectedItem, handleCloseMenuModal }) {
+const initCartItem = (item) => {
+  return {
+    listId: Date.now(),
+    drinkId: item.id,
+    name: item.name,
+    img: item.img,
+    price: item.price,
+    quantity: 1,
+    size: item.options.find((option) => option.type === 'size').value[0].id,
+    temperature: item.options.find((option) => option.type === 'temperature')
+      .value[0].id,
+  };
+};
+
+export default function MenuModal({
+  selectedItem,
+  handleModal,
+  handleAddCartItem,
+}) {
+  const [cartItem, setCartItem] = useState(initCartItem(selectedItem));
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <Info selectedItem={selectedItem} />
-        <Decision handleCloseMenuModal={handleCloseMenuModal} />
+        <Info
+          selectedItem={selectedItem}
+          cartItem={cartItem}
+          setCartItem={setCartItem}
+        />
+        <Decision
+          handleModal={handleModal}
+          cartItem={cartItem}
+          setCartItem={setCartItem}
+          handleAddCartItem={handleAddCartItem}
+        />
       </div>
     </div>
   );

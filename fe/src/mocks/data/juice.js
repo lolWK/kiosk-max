@@ -1,6 +1,6 @@
 const juiceDrinks = [
   {
-    id: 1,
+    id: 6,
     type: 'juice',
     name: '오렌지쥬스',
     img: 'https://pngimg.com/uploads/juice/small/juice_PNG7161.png',
@@ -30,14 +30,14 @@ const juiceDrinks = [
         value: [
           {
             id: 1,
-            detail: 'cold',
+            detail: 'Ice',
           },
         ],
       },
     ],
   },
   {
-    id: 2,
+    id: 7,
     type: 'juice',
     name: '망고쥬스',
     img: 'https://pngimg.com/uploads/juice/small/juice_PNG7181.png',
@@ -67,14 +67,14 @@ const juiceDrinks = [
         value: [
           {
             id: 1,
-            detail: 'cold',
+            detail: 'Ice',
           },
         ],
       },
     ],
   },
   {
-    id: 3,
+    id: 8,
     type: 'juice',
     name: '딸기쥬스',
     img: 'https://pngimg.com/uploads/juice/small/juice_PNG7173.png',
@@ -104,7 +104,7 @@ const juiceDrinks = [
         value: [
           {
             id: 1,
-            detail: 'cold',
+            detail: 'Ice',
           },
         ],
       },

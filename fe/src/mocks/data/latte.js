@@ -1,6 +1,6 @@
 const latteDrinks = [
   {
-    id: 1,
+    id: 4,
     type: 'latte',
     name: '라떼',
     img: 'https://pngimg.com/uploads/cup/cup_PNG1996.png',
@@ -41,7 +41,7 @@ const latteDrinks = [
     ],
   },
   {
-    id: 2,
+    id: 5,
     type: 'latte',
     name: '달고나라떼',
     img: 'https://pngimg.com/uploads/cup/cup_PNG1996.png',

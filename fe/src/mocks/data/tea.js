@@ -1,6 +1,6 @@
 const teaDrinks = [
   {
-    id: 1,
+    id: 9,
     type: 'tea',
     name: '녹차',
     img: 'https://pngimg.com/uploads/cup/small/cup_PNG1987.png',
@@ -41,7 +41,7 @@ const teaDrinks = [
     ],
   },
   {
-    id: 2,
+    id: 10,
     type: 'tea',
     name: '레몬차',
     img: 'https://pngimg.com/uploads/tea/small/tea_PNG98908.png',

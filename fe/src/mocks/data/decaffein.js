@@ -1,6 +1,6 @@
 const decaffein = [
   {
-    id: 1,
+    id: 11,
     type: 'decaffein',
     name: '아메리카노',
     img: 'https://cdn.imweb.me/upload/S2022012027a2ef95d300f/f6224ed0b663d.png',
