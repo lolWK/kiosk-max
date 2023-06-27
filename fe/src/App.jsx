@@ -8,10 +8,10 @@ import Cart from './components/Cart/Cart';
 
 export default function App() {
   const [categoryLists, setCategoryLists] = useState([]);
-  const [selectedTab, setSelectedTab] = useState('coffee'); // 현재 선택된 탭의 인덱스
+  const [selectedTab, setSelectedTab] = useState('coffee');
   const [drinksLists, setDrinksLists] = useState([]);
   const [selectedItem, setSelectedItem] = useState({});
-  const [showModal, setShowModal] = useState(false);
+  const [showMode, setShowMode] = useState('');
   const [cartList, setCartList] = useState([]);
 
   useEffect(() => {
@@ -23,18 +23,12 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    console.log(selectedTab);
     fetch(`https://example.com/api/drinks?category=${selectedTab}`)
       .then((response) => response.json())
       .then((data) => {
         setDrinksLists(data);
-        console.log(drinksLists); // fetch가 완료된 후에 로그를 출력합니다.
       });
   }, [selectedTab]);
-
-  const handleModal = () => {
-    setShowModal(!showModal);
-  };
 
   const handleTabSelect = (id) => {
     setSelectedTab(id);
@@ -78,10 +72,6 @@ export default function App() {
     setCartList(newCartList);
   };
 
-  const handleRemoveAllCartList = () => {
-    setCartList([]);
-  };
-
   return (
     <div className={styles.main}>
       <CategoryTab
@@ -91,24 +81,28 @@ export default function App() {
       />
       <MenuList
         menuItems={drinksLists}
-        handleModal={handleModal}
+        setShowMode={setShowMode}
         handleItemSelect={handleItemSelect}
       />
-      {showModal && (
+      <Cart
+        cartList={cartList}
+        setCartList={setCartList}
+        handleRemoveCartItem={handleRemoveCartItem}
+        showMode={showMode}
+        setShowMode={setShowMode}
+      />
+      {showMode === 'menu' && (
         <>
           <Dim />
           <MenuModal
             selectedItem={selectedItem}
-            handleModal={handleModal}
+            setShowMode={setShowMode}
             handleAddCartItem={handleAddCartItem}
           />
         </>
       )}
-      <Cart
-        cartList={cartList}
-        handleRemoveCartItem={handleRemoveCartItem}
-        handleRemoveAllCartList={handleRemoveAllCartList}
-      />
+      {showMode === 'card' && <Dim />}
+      {showMode === 'cash' && <Dim />}
     </div>
   );
 }

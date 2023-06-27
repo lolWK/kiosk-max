@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './MenuItem.module.css';
 
-export default function MenuItem({ menu, handleModal, handleItemSelect }) {
+export default function MenuItem({ menu, setShowMode, handleItemSelect }) {
   const handleClickWrapper = (key) => {
-    handleModal();
+    setShowMode('menu');
     handleItemSelect(key);
   };
 

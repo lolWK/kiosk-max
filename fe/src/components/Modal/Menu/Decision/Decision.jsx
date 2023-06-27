@@ -1,15 +1,15 @@
 import styles from './Decision.module.css';
 import Cancel from '../../Cancel/Cancel';
 
-export default function Decision({ handleModal, cartItem, handleAddCartItem }) {
+export default function Decision({ setShowMode, cartItem, handleAddCartItem }) {
   const handleClickWrapper = () => {
     handleAddCartItem(cartItem);
-    handleModal();
+    setShowMode('');
   };
 
   return (
     <div className={styles.decision}>
-      <Cancel className={styles.cancel} handleModal={handleModal} />
+      <Cancel className={styles.cancel} setShowMode={() => setShowMode('')} />
       <button
         className={styles.add}
         type="button"

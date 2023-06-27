@@ -1,20 +1,25 @@
 import { useState, useEffect } from 'react';
 import styles from './Cart.module.css';
 import CartLists from './CartLists';
+import Dim from '../Modal/Dim/Dim';
+import PaymentModal from '../Modal/Payment/PaymentModal';
 
 export default function Cart({
   cartList,
+  setCartList,
   handleRemoveCartItem,
-  handleRemoveAllCartList,
+  showMode,
+  setShowMode,
 }) {
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [countDownTime, setCountDownTime] = useState(10);
+  const [countDownTime, setCountDownTime] = useState(120);
   const [timerId, setTimerId] = useState(null);
+  const [tempList, setTempList] = useState([]);
 
   useEffect(() => {
     if (cartList.length > 0) {
       setIsCartOpen(true);
-      setCountDownTime(10);
+      setCountDownTime(120);
     } else {
       setIsCartOpen(false);
     }
@@ -36,10 +41,16 @@ export default function Cart({
 
   useEffect(() => {
     if (countDownTime === 0) {
-      setCountDownTime(10);
-      handleRemoveAllCartList();
+      setCountDownTime(120);
+      setCartList([]);
     }
   }, [countDownTime]);
+
+  const handlePaymentButton = () => {
+    setShowMode('payment');
+    setTempList(cartList);
+    setCartList([]);
+  };
 
   return (
     <div>
@@ -54,16 +65,33 @@ export default function Cart({
             <button
               type="button"
               className={styles.cancel}
-              onClick={handleRemoveAllCartList}
+              onClick={() => setCartList([])}
             >
               취소
             </button>
-            <button type="button" className={styles.payment}>
+            <button
+              type="button"
+              className={styles.payment}
+              onClick={handlePaymentButton}
+            >
               결제하기
             </button>
           </div>
         </div>
       )}
+      {showMode === 'payment' && (
+        <>
+          <Dim />
+          <PaymentModal
+            setShowMode={setShowMode}
+            setCartList={setCartList}
+            tempList={tempList}
+            setTempList={setTempList}
+          />
+        </>
+      )}
+      {showMode === 'card' && <Dim />}
+      {showMode === 'cash' && <Dim />}
     </div>
   );
 }
