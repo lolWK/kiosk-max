@@ -6,5 +6,6 @@ public interface OrderRepository {
 
     long save(Order order);
     Order findById(long orderId);
+    void deleteAll();
 
 }
