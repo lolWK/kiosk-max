@@ -2,14 +2,18 @@ package team04.kioskbe.Drink;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@SpringBootTest
 public class DrinkServiceTest {
-    DrinkService drinkService = new DrinkService();
+    @Autowired
+    DrinkService drinkService;
 
     @Test
     @DisplayName("카테고리 목록을 조회하면 카테고리 목록을 반환한다.")
