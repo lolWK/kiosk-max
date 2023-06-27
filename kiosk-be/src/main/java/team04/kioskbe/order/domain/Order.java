@@ -12,6 +12,21 @@ public class Order {
     private LocalDate orderDate;
     private LocalTime orderTime;
 
+    public Order(int totalAmount, int receivedAmount, Payment payment) {
+        this.totalAmount = totalAmount;
+        this.receivedAmount = receivedAmount;
+        this.payment = payment;
+    }
+
+    public Order(final Long id, final int totalAmount, final int receivedAmount, final Payment payment, final LocalDate orderDate, final LocalTime orderTime) {
+        this.id = id;
+        this.totalAmount = totalAmount;
+        this.receivedAmount = receivedAmount;
+        this.payment = payment;
+        this.orderDate = orderDate;
+        this.orderTime = orderTime;
+    }
+
     public Long getId() {
         return id;
     }
