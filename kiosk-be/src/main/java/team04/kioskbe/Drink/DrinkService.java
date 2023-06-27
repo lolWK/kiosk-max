@@ -14,14 +14,14 @@ public class DrinkService {
         this.drinkRepository = drinkRepository;
     }
 
-    public List<CategoryResponse> getCategories(){
+    public List<CategoryResponse> getCategories() {
         return CategoryResponse.getCategories();
     }
 
-    public  List<DrinkResponse> getDrinks(String category){
+    public List<DrinkResponse> getDrinks(String category) {
         List<Drink> drinkList = drinkRepository.findByCategory(category);
         List<DrinkResponse> drinkResponses = new ArrayList<>();
-        for(Drink drink: drinkList){
+        for (Drink drink : drinkList) {
             drinkResponses.add(DrinkResponse.from(drink));
         }
         return drinkResponses;

@@ -20,7 +20,7 @@ public class DrinkRepositoryTest {
 
     @Test
     @DisplayName("카테고리로 음료 목록 조회시 해당하는 음료 목록을 반환한다.")
-    public void findByCategoryTest(){
+    public void findByCategoryTest() {
         //given
         String category = "coffee";
 
@@ -56,7 +56,7 @@ public class DrinkRepositoryTest {
         assertThat(drink1.getCategory()).isEqualTo(americano.getCategory());
         assertThat(drink1.getPrice()).isEqualTo(americano.getPrice());
 
-        for(int i = 0; i < drink1.getOptions().size(); i++){
+        for (int i = 0; i < drink1.getOptions().size(); i++) {
             assertThat(drink1.getOptions().get(i).getId()).isEqualTo(americano.getOptions().get(i).getId());
             assertThat(drink1.getOptions().get(i).getType()).isEqualTo(americano.getOptions().get(i).getType());
             assertThat(drink1.getOptions().get(i).getValue()).isEqualTo(americano.getOptions().get(i).getValue());
