@@ -4,10 +4,9 @@ import team04.kioskbe.domain.Category;
 import team04.kioskbe.domain.Drink;
 import team04.kioskbe.domain.Option;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class DrinkResponse {
     private final Long id;
@@ -33,14 +32,12 @@ public class DrinkResponse {
                 drink.getPrice(), drink.getCategory(), drink.getTotalQuantity(), drink.getOptions());
     }
 
-    private Map<String, List<OptionValue>> aggregateOptionByType(List<Option> options) {
-        Map<String, List<OptionValue>> map = new HashMap<>();
-        for (Option option : options) {
-            OptionValue optionValue = new OptionValue(option.getId(), option.getValue());
-            map.put(option.getType(), map.getOrDefault(option.getType(), new ArrayList<>()));
-            map.get(option.getType()).add(optionValue);
-        }
-        return map;
+    private static Map<String, List<OptionValue>> aggregateOptionByType(List<Option> options) {
+        return options.stream()
+                .collect(Collectors.groupingBy(
+                        Option::getType,
+                        Collectors.mapping(option -> new OptionValue(option.getId(), option.getValue()), Collectors.toList())
+                ));
     }
 
     public Long getId() {

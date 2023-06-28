@@ -1,10 +1,9 @@
 package team04.kioskbe.Drink;
 
 import org.springframework.stereotype.Service;
-import team04.kioskbe.domain.Drink;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DrinkService {
@@ -19,11 +18,8 @@ public class DrinkService {
     }
 
     public List<DrinkResponse> getDrinks(String category) {
-        List<Drink> drinkList = drinkRepository.findByCategory(category);
-        List<DrinkResponse> drinkResponses = new ArrayList<>();
-        for (Drink drink : drinkList) {
-            drinkResponses.add(DrinkResponse.from(drink));
-        }
-        return drinkResponses;
+        return drinkRepository.findByCategory(category).stream()
+                .map(DrinkResponse::from)
+                .collect(Collectors.toList());
     }
 }

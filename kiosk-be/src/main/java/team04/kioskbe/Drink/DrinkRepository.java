@@ -1,5 +1,6 @@
 package team04.kioskbe.Drink;
 
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -8,6 +9,8 @@ import team04.kioskbe.domain.Drink;
 import team04.kioskbe.domain.Option;
 
 import javax.sql.DataSource;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +26,7 @@ public class DrinkRepository {
     }
 
     public List<Drink> findByCategory(String category) {
-        String sql = "SELECT d.id, d.name, d.img, d.price, do.type, do.value, do.id AS option_id, IFNULL(SUM(od.quantity), 0) AS daily_sold_quantity, " +
+        String sql = "SELECT d.id, d.name, d.img, d.price, d.type AS category, do.type, do.value, do.id AS option_id, IFNULL(SUM(od.quantity), 0) AS daily_sold_quantity, " +
                 "(SELECT IFNULL(SUM(quantity), 0) FROM order_drink WHERE drink_id = d.id) AS total_sold_quantity " +
                 "FROM drink d " +
                 "LEFT JOIN available_option ao ON d.id = ao.drink_id " +
@@ -37,7 +40,13 @@ public class DrinkRepository {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("category", category);
 
-        return namedParameterJdbcTemplate.query(sql, params, (rs) -> {
+        List<Drink> drinkList = namedParameterJdbcTemplate.query(sql, params, new DrinkListResultSetExtractor());
+        return drinkList;
+    }
+
+    public class DrinkListResultSetExtractor implements ResultSetExtractor<List<Drink>> {
+        @Override
+        public List<Drink> extractData(ResultSet rs) throws SQLException {
             List<Drink> drinkList = new ArrayList<>();
             Map<Long, Drink> drinkMap = new HashMap<>();
             while (rs.next()) {
@@ -48,8 +57,9 @@ public class DrinkRepository {
                             .name(rs.getString("name"))
                             .img(rs.getString("img"))
                             .price(rs.getInt("price"))
-                            .category(Category.findCategory(category))
+                            .category(Category.findCategory(rs.getString("category")))
                             .totalQuantity(rs.getInt("total_sold_quantity"))
+                            .options(new ArrayList<>())
                             .build();
                     drinkMap.put(id, newDrink);
                     drinkList.add(newDrink);
@@ -61,9 +71,9 @@ public class DrinkRepository {
                     drink.getOptions().add(new Option(optionId,
                             rs.getString("type"), rs.getString("value")));
                 }
-
             }
             return drinkList;
-        });
+        }
     }
+
 }

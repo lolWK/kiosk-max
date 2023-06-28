@@ -1,8 +1,8 @@
 package team04.kioskbe.Drink;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class OptionResponse {
     private final String type;
@@ -14,11 +14,9 @@ public class OptionResponse {
     }
 
     public static List<OptionResponse> valueOf(Map<String, List<OptionValue>> optionMap) {
-        List<OptionResponse> list = new ArrayList<>();
-        for (String key : optionMap.keySet()) {
-            list.add(new OptionResponse(key, optionMap.get(key)));
-        }
-        return list;
+        return optionMap.entrySet().stream()
+                .map(entry -> new OptionResponse(entry.getKey(), entry.getValue()))
+                .collect(Collectors.toList());
     }
 
     public String getType() {

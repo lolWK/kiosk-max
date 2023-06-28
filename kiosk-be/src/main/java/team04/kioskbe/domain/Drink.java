@@ -1,6 +1,5 @@
 package team04.kioskbe.domain;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Drink {
@@ -11,7 +10,7 @@ public class Drink {
     private final int price;
     private final int totalQuantity;
     private final Category category;
-    private final List<Option> options = new ArrayList<>();
+    private final List<Option> options;
 
     private Drink(Builder builder) {
         this.id = builder.id;
@@ -20,6 +19,7 @@ public class Drink {
         this.price = builder.price;
         this.category = builder.category;
         this.totalQuantity = builder.totalQuantity;
+        this.options = builder.options;
     }
 
     public static Builder builder() {
@@ -61,6 +61,7 @@ public class Drink {
         private int price;
         private Category category;
         private int totalQuantity;
+        private List<Option> options;
 
         public Builder id(Long id) {
             this.id = id;
@@ -89,6 +90,11 @@ public class Drink {
 
         public Builder totalQuantity(int totalQuantity) {
             this.totalQuantity = totalQuantity;
+            return this;
+        }
+
+        public Builder options(List<Option> options) {
+            this.options = options;
             return this;
         }
 
