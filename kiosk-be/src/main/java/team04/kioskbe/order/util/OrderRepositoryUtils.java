@@ -39,8 +39,8 @@ public final class OrderRepositoryUtils {
         return new MapSqlParameterSource(Map.of(ORDER_ID_COLUMN, orderId, DRINK_ID_COLUMN, drink.getDrinkId(), QUANTITY_COLUMN, drink.getQuantity(), ORDER_PRICE_COLUMN, drink.getOrderPrice()));
     }
 
-    public static MapSqlParameterSource getOptionParamSource(final OrderDrink drink, final Long optionId) {
-        return new MapSqlParameterSource(Map.of(OPTION_ID_COLUMN, optionId, ORDER_DRINK_ID_COLUMN, drink.getDrinkId()));
+    public static MapSqlParameterSource getOptionParamSource(final long orderDrinkId, final Long optionId) {
+        return new MapSqlParameterSource(Map.of(OPTION_ID_COLUMN, optionId, ORDER_DRINK_ID_COLUMN, orderDrinkId));
     }
 
     public static RowMapper<Order> getOrderRowMapper() {

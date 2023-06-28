@@ -10,6 +10,7 @@ public class OrderDrinkResponse {
 
     private String name;
     private int quantity;
+    private List<OptionResponse> optionResponses;
 
     public OrderDrinkResponse(final int quantity) {
         this.quantity = quantity;
@@ -32,6 +33,10 @@ public class OrderDrinkResponse {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public List<String> getOptionResponses() {
+        return List.of("L", "HOT");
     }
 
     @Override
