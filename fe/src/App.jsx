@@ -15,7 +15,7 @@ export default function App() {
   const [cartList, setCartList] = useState([]);
 
   useEffect(() => {
-    fetch(`https://example.com/api/categories`)
+    fetch(`http://localhost:8080/drinks/categories`)
       .then((response) => response.json())
       .then((data) => {
         setCategoryLists(data);
@@ -23,7 +23,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    fetch(`https://example.com/api/drinks?category=${selectedTab}`)
+    fetch(`http://localhost:8080/drinks?type=${selectedTab}`)
       .then((response) => response.json())
       .then((data) => {
         setDrinksLists(data);

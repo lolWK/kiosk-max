@@ -9,11 +9,11 @@ import decaffein from './data/decaffein';
 import recipe from './data/recipe';
 
 const handlers = [
-  rest.get('https://example.com/api/drinks', (req, res, ctx) => {
-    const category = req.url.searchParams.get('category');
+  rest.get('http://localhost:8080/drinks', (req, res, ctx) => {
+    const type = req.url.searchParams.get('type');
 
     let drinks;
-    switch (category) {
+    switch (type) {
       case 'coffee':
         drinks = coffeeDrinks;
         break;
@@ -36,11 +36,11 @@ const handlers = [
     return res(ctx.status(200), ctx.json(drinks));
   }),
 
-  rest.get('https://example.com/api/categories', (req, res, ctx) => {
+  rest.get('http://localhost:8080/drinks/categories', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(catagoryLists));
   }),
 
-  rest.get('https://example.com/api/recipe', (req, res, ctx) => {
+  rest.get('http://localhost:8080/recipe', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(recipe));
   }),
 ];
