@@ -26,6 +26,9 @@ public class Drink {
         return new Builder();
     }
 
+    public Drink() {
+    }
+
     public Long getId() {
         return id;
     }
