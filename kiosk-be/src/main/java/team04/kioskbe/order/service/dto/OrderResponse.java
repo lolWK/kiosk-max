@@ -16,7 +16,8 @@ public class OrderResponse {
     public OrderResponse() {
     }
 
-    public OrderResponse(List<OrderDrinkResponse> drinks, String payment, int receivedAmount, int totalAmount, int change) {
+    public OrderResponse(long dailyOrderId, List<OrderDrinkResponse> drinks, String payment, int receivedAmount, int totalAmount, int change) {
+        this.dailyOrderId = dailyOrderId;
         this.drinks = drinks;
         this.payment = payment;
         this.receivedAmount = receivedAmount;
@@ -24,10 +25,10 @@ public class OrderResponse {
         this.change = change;
     }
 
-    public static OrderResponse from(Order order) {
+    public static OrderResponse from(Order order, long dailyOrderId) {
         final int receivedAmount = order.getReceivedAmount();
         final int totalAmount = order.getTotalAmount();
-        return new OrderResponse(OrderDrinkResponse.of(order.getDrinks()), order.getPayment().getName(), receivedAmount, totalAmount, receivedAmount - totalAmount);
+        return new OrderResponse(dailyOrderId, OrderDrinkResponse.of(order.getDrinks()), order.getPayment().getName(), receivedAmount, totalAmount, receivedAmount - totalAmount);
     }
 
     public long getDailyOrderId() {

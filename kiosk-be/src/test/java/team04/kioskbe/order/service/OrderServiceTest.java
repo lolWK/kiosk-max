@@ -92,7 +92,8 @@ class OrderServiceTest {
                 () -> assertThat(orderById.getReceivedAmount()).isEqualTo(30000),
                 () -> assertThat(orderById.getPayment()).isEqualTo(Payment.CASH.getName()),
                 () -> assertThat(orderById.getChange()).isEqualTo(0),
-                () -> assertThat(orderById.getDrinks()).containsExactlyInAnyOrder(OrderDrinkResponse.from(orderDrink1), OrderDrinkResponse.from(orderDrink2)));
+                () -> assertThat(orderById.getDrinks()).containsExactlyInAnyOrder(OrderDrinkResponse.from(orderDrink1), OrderDrinkResponse.from(orderDrink2)),
+                () -> assertThat(orderById.getDailyOrderId()).isEqualTo(1));
     }
 
 }
