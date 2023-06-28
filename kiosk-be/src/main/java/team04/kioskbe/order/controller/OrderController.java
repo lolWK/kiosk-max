@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import team04.kioskbe.order.domain.Payment;
 import team04.kioskbe.order.service.OrderService;
@@ -33,9 +32,29 @@ public class OrderController {
     }
 
     @PostMapping("/orders")
-    public ResponseEntity<Void> saveOrder(@RequestBody OrderRequest orderRequest) {
+    public ResponseEntity<String> saveOrder(@RequestBody OrderRequest orderRequest) {
+        try {
+            awaitPayment();
+            decidePaymentStatus();
+        } catch (InterruptedException e) {
+            return ResponseEntity.internalServerError().body("서버에 문제가 발생했습니다.\n관리자에게 문의하세요.");
+        } catch (IllegalStateException e) {
+            return ResponseEntity.badRequest().body("카드 결제에 실패했습니다.\n다른 카드로 다시 시도해주세요.");
+        }
         long saved = orderService.save(orderRequest);
         return ResponseEntity.created(URI.create("/orders/" + saved)).build();
+    }
+
+    private static void awaitPayment() throws InterruptedException {
+        final int randomNumber = (int) (Math.random() * 4000);
+        final int sleepTime = randomNumber + 3000;
+        Thread.sleep(sleepTime);
+    }
+
+    private static void decidePaymentStatus() {
+        if (Math.random() > 0.8) {
+            throw new IllegalStateException();
+        }
     }
 
     @GetMapping("/orders/{orderId}")
