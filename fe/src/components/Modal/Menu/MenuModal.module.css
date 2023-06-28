@@ -10,6 +10,11 @@
   z-index: 2;
 }
 
+.done {
+  transition: opacity 1s;
+  opacity: 0;
+}
+
 .container {
   width: 571px;
   height: 423px;

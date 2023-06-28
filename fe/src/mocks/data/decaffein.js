@@ -5,36 +5,35 @@ const decaffein = [
     name: '아메리카노',
     img: 'https://cdn.imweb.me/upload/S2022012027a2ef95d300f/f6224ed0b663d.png',
     price: 4500,
+    totalQuantity: 50,
     options: [
       {
-        id: 1,
         type: 'size',
-        value: [
+        values: [
           {
             id: 1,
-            detail: 'S',
+            value: 'S',
           },
           {
             id: 2,
-            detail: 'M',
+            value: 'M',
           },
           {
             id: 3,
-            detail: 'L',
+            value: 'L',
           },
         ],
       },
       {
-        id: 2,
         type: 'temperature',
-        value: [
+        values: [
           {
-            id: 1,
-            detail: 'Hot',
+            id: 4,
+            value: 'Hot',
           },
           {
-            id: 2,
-            detail: 'ICE',
+            id: 5,
+            value: 'ICE',
           },
         ],
       },

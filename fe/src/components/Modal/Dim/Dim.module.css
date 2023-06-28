@@ -8,3 +8,8 @@
   top: 0;
   z-index: 1;
 }
+
+.disappear {
+  transition: opacity 1s;
+  opacity: 0;
+}

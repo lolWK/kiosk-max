@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './MenuItem.module.css';
 
 export default function MenuItem({ menu, setShowMode, handleItemSelect }) {

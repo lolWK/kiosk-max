@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styles from './MenuModal.module.css';
 import Info from './Info/Info';
 import Decision from './Decision/Decision';
+import Dim from '../Dim/Dim';
 
 const initCartItem = (item) => {
   return {
@@ -11,9 +12,9 @@ const initCartItem = (item) => {
     img: item.img,
     price: item.price,
     quantity: 1,
-    size: item.options.find((option) => option.type === 'size').value[0].id,
+    size: item.options.find((option) => option.type === 'size').values[0].id,
     temperature: item.options.find((option) => option.type === 'temperature')
-      .value[0].id,
+      .values[0].id,
   };
 };
 
@@ -23,21 +24,36 @@ export default function MenuModal({
   handleAddCartItem,
 }) {
   const [cartItem, setCartItem] = useState(initCartItem(selectedItem));
+  const [itemStatus, setItemStatus] = useState(false);
+  const [modalStatus, setModalStatus] = useState(false);
+  const [dimStatus, setDimStatus] = useState(false);
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.container}>
-        <Info
-          selectedItem={selectedItem}
-          cartItem={cartItem}
-          setCartItem={setCartItem}
-        />
-        <Decision
-          setShowMode={setShowMode}
-          cartItem={cartItem}
-          setCartItem={setCartItem}
-          handleAddCartItem={handleAddCartItem}
-        />
+    <div>
+      <Dim dimStatus={dimStatus} />
+      <div
+        className={
+          modalStatus ? `${styles.wrapper} ${styles.done}` : `${styles.wrapper}`
+        }
+      >
+        <div className={styles.container}>
+          <Info
+            selectedItem={selectedItem}
+            cartItem={cartItem}
+            setCartItem={setCartItem}
+            itemStatus={itemStatus}
+            modalStatus={modalStatus}
+          />
+          <Decision
+            setShowMode={setShowMode}
+            cartItem={cartItem}
+            setCartItem={setCartItem}
+            handleAddCartItem={handleAddCartItem}
+            setItemStatus={setItemStatus}
+            setModalStatus={setModalStatus}
+            setDimStatus={setDimStatus}
+          />
+        </div>
       </div>
     </div>
   );

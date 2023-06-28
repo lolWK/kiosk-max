@@ -81,6 +81,7 @@ export default function App() {
       />
       <MenuList
         menuItems={drinksLists}
+        selectedTab={selectedTab}
         setShowMode={setShowMode}
         handleItemSelect={handleItemSelect}
       />

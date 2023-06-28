@@ -8,12 +8,12 @@
   align-items: center;
 }
 
-.timer {
+/* .timer {
   font-size: 26px;
   margin-top: auto;
   margin-right: 10px;
   position: relative;
-}
+} */
 
 .buttons {
   display: flex;

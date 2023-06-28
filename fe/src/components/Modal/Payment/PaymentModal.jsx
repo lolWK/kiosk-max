@@ -12,6 +12,11 @@ export default function PaymentModal({
     setShowMode('');
   };
 
+  const handleCashButton = () => {
+    setShowMode('cash');
+    setCartList(tempList);
+  };
+
   return (
     <div className={styles.container}>
       <button
@@ -35,7 +40,7 @@ export default function PaymentModal({
           src="https://img.freepik.com/free-vector/dollar_53876-25498.jpg?w=826&t=st=1687795207~exp=1687795807~hmac=96d2a959568589883270360017b770e1af4444a4e403802eb88cfc880a6ef2d9"
           alt=""
         />
-        <button type="button" onClick={() => setShowMode('cash')}>
+        <button type="button" onClick={() => handleCashButton()}>
           현금결제
         </button>
       </div>

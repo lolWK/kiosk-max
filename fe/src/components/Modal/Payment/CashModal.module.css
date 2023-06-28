@@ -12,6 +12,7 @@
   justify-content: center;
   padding: 0 45px;
   gap: 68px;
+  z-index: 2;
 }
 .cashLists {
   width: 100%;

@@ -5,36 +5,35 @@ const latteDrinks = [
     name: '라떼',
     img: 'https://pngimg.com/uploads/cup/cup_PNG1996.png',
     price: 4000,
+    totalQuantity: 30,
     options: [
       {
-        id: 1,
         type: 'size',
-        value: [
+        values: [
           {
             id: 1,
-            detail: 'S',
+            value: 'S',
           },
           {
             id: 2,
-            detail: 'M',
+            value: 'M',
           },
           {
             id: 3,
-            detail: 'L',
+            value: 'L',
           },
         ],
       },
       {
-        id: 2,
         type: 'temperature',
-        value: [
+        values: [
           {
-            id: 1,
-            detail: 'Hot',
+            id: 4,
+            value: 'Hot',
           },
           {
-            id: 2,
-            detail: 'Ice',
+            id: 5,
+            value: 'Ice',
           },
         ],
       },
@@ -46,36 +45,35 @@ const latteDrinks = [
     name: '달고나라떼',
     img: 'https://pngimg.com/uploads/cup/cup_PNG1996.png',
     price: 5000,
+    totalQuantity: 50,
     options: [
       {
-        id: 1,
         type: 'size',
-        value: [
+        values: [
           {
             id: 1,
-            detail: 'S',
+            value: 'S',
           },
           {
             id: 2,
-            detail: 'M',
+            value: 'M',
           },
           {
             id: 3,
-            detail: 'L',
+            value: 'L',
           },
         ],
       },
       {
-        id: 2,
         type: 'temperature',
-        value: [
+        values: [
           {
-            id: 1,
-            detail: 'Hot',
+            id: 4,
+            value: 'Hot',
           },
           {
-            id: 2,
-            detail: 'Ice',
+            id: 5,
+            value: 'Ice',
           },
         ],
       },

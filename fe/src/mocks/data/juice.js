@@ -5,32 +5,32 @@ const juiceDrinks = [
     name: '오렌지쥬스',
     img: 'https://pngimg.com/uploads/juice/small/juice_PNG7161.png',
     price: 4000,
+    totalQuantity: 30,
     options: [
       {
-        id: 1,
         type: 'size',
-        value: [
+        values: [
           {
             id: 1,
-            detail: 'S',
+            value: 'S',
           },
           {
             id: 2,
-            detail: 'M',
+            value: 'M',
           },
           {
             id: 3,
-            detail: 'L',
+            value: 'L',
           },
         ],
       },
       {
         id: 2,
         type: 'temperature',
-        value: [
+        values: [
           {
-            id: 1,
-            detail: 'Ice',
+            id: 5,
+            value: 'Ice',
           },
         ],
       },
@@ -42,32 +42,31 @@ const juiceDrinks = [
     name: '망고쥬스',
     img: 'https://pngimg.com/uploads/juice/small/juice_PNG7181.png',
     price: 5000,
+    totalQuantity: 20,
     options: [
       {
-        id: 1,
         type: 'size',
-        value: [
+        values: [
           {
             id: 1,
-            detail: 'S',
+            value: 'S',
           },
           {
             id: 2,
-            detail: 'M',
+            value: 'M',
           },
           {
             id: 3,
-            detail: 'L',
+            value: 'L',
           },
         ],
       },
       {
-        id: 2,
         type: 'temperature',
-        value: [
+        values: [
           {
-            id: 1,
-            detail: 'Ice',
+            id: 5,
+            value: 'Ice',
           },
         ],
       },
@@ -79,32 +78,31 @@ const juiceDrinks = [
     name: '딸기쥬스',
     img: 'https://pngimg.com/uploads/juice/small/juice_PNG7173.png',
     price: 5000,
+    totalQuantity: 50,
     options: [
       {
-        id: 1,
         type: 'size',
-        value: [
+        values: [
           {
             id: 1,
-            detail: 'S',
+            value: 'S',
           },
           {
             id: 2,
-            detail: 'M',
+            value: 'M',
           },
           {
             id: 3,
-            detail: 'L',
+            value: 'L',
           },
         ],
       },
       {
-        id: 2,
         type: 'temperature',
-        value: [
+        values: [
           {
-            id: 1,
-            detail: 'Ice',
+            id: 5,
+            value: 'Ice',
           },
         ],
       },

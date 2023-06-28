@@ -1,10 +1,23 @@
 import styles from './Decision.module.css';
 import Cancel from '../../Cancel/Cancel';
 
-export default function Decision({ setShowMode, cartItem, handleAddCartItem }) {
+export default function Decision({
+  setShowMode,
+  cartItem,
+  handleAddCartItem,
+  setItemStatus,
+  setModalStatus,
+  setDimStatus,
+}) {
   const handleClickWrapper = () => {
     handleAddCartItem(cartItem);
-    setShowMode('');
+    setItemStatus(true);
+    setModalStatus(true);
+    setDimStatus(true);
+
+    setTimeout(() => {
+      setShowMode('');
+    }, 1000);
   };
 
   return (

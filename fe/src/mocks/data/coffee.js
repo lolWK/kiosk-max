@@ -5,36 +5,35 @@ const coffeeDrinks = [
     name: '아메리카노',
     img: 'https://cdn.imweb.me/upload/S2022012027a2ef95d300f/f6224ed0b663d.png',
     price: 4000,
+    totalQuantity: 50,
     options: [
       {
-        id: 1,
         type: 'size',
-        value: [
+        values: [
           {
             id: 1,
-            detail: 'S',
+            value: 'S',
           },
           {
             id: 2,
-            detail: 'M',
+            value: 'M',
           },
           {
             id: 3,
-            detail: 'L',
+            value: 'L',
           },
         ],
       },
       {
-        id: 2,
         type: 'temperature',
-        value: [
+        values: [
           {
-            id: 1,
-            detail: 'Hot',
+            id: 4,
+            value: 'Hot',
           },
           {
-            id: 2,
-            detail: 'Ice',
+            id: 5,
+            value: 'Ice',
           },
         ],
       },
@@ -46,32 +45,31 @@ const coffeeDrinks = [
     name: '콜드브루',
     img: 'https://cdn.imweb.me/upload/S2022012027a2ef95d300f/f6224ed0b663d.png',
     price: 5000,
+    totalQuantity: 30,
     options: [
       {
-        id: 1,
         type: 'size',
-        value: [
+        values: [
           {
             id: 1,
-            detail: 'S',
+            value: 'S',
           },
           {
             id: 2,
-            detail: 'M',
+            value: 'M',
           },
           {
             id: 3,
-            detail: 'L',
+            value: 'L',
           },
         ],
       },
       {
-        id: 2,
         type: 'temperature',
-        value: [
+        values: [
           {
-            id: 1,
-            detail: 'Ice',
+            id: 5,
+            value: 'Ice',
           },
         ],
       },
@@ -85,26 +83,24 @@ const coffeeDrinks = [
     price: 3000,
     options: [
       {
-        id: 1,
         type: 'size',
-        value: [
+        values: [
           {
-            id: 1,
-            detail: 'one',
+            id: 10,
+            value: 'one',
           },
           {
-            id: 2,
-            detail: 'two',
+            id: 11,
+            value: 'two',
           },
         ],
       },
       {
-        id: 2,
         type: 'temperature',
-        value: [
+        values: [
           {
-            id: 1,
-            detail: 'Hot',
+            id: 4,
+            value: 'Hot',
           },
         ],
       },

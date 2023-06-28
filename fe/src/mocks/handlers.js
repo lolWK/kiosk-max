@@ -6,6 +6,7 @@ import teaDrinks from './data/tea';
 import juiceDrinks from './data/juice';
 import latteDrinks from './data/latte';
 import decaffein from './data/decaffein';
+import recipe from './data/recipe';
 
 const handlers = [
   rest.get('https://example.com/api/drinks', (req, res, ctx) => {
@@ -37,6 +38,10 @@ const handlers = [
 
   rest.get('https://example.com/api/categories', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(catagoryLists));
+  }),
+
+  rest.get('https://example.com/api/recipe', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(recipe));
   }),
 ];
 
