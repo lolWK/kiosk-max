@@ -11,6 +11,9 @@ public class Drink {
     private Category category;
     private List<Option> options;
 
+    public Drink() {
+    }
+
     public Long getId() {
         return id;
     }

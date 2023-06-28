@@ -22,7 +22,7 @@ public class OrderRepositoryImpl implements OrderRepository {
     private static final String INSERT_ORDER_DRINK_SQL = "INSERT INTO order_drink (order_id, drink_id, quantity, order_price) VALUES (:order_id, :drink_id, :quantity, :order_price);";
     private static final String INSERT_DRINK_CHOICE_SQL = "INSERT INTO drink_choice (option_id, order_drink_id) VALUES (:option_id, :order_drink_id);";
     private static final String SELECT_ORDER_BY_ID_SQL =
-            " SELECT o.id, o.payment, o.total_amount, o.received_amount, o.order_date, o.order_time, od.id AS order_drink_id, od.drink_id, od.quantity, od.order_price, dc.option_id " +
+            " SELECT o.id, o.payment, o.total_amount, o.received_amount, o.order_date, o.order_time, od.id AS order_drink_id, od.drink_id, od.quantity, od.order_price, d.name AS drink_name, dc.option_id, do.value AS option_name " +
             " FROM order_info AS o " +
             " LEFT OUTER JOIN order_drink AS od ON o.id=od.order_id " +
             " LEFT OUTER JOIN drink AS d ON od.drink_id=d.id " +
@@ -65,8 +65,8 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Transactional
-    private void saveDrinkChoice(OrderDrink drink,long orderDrinkId) {
-        drink.getOptions().forEach(optionId -> jdbcTemplate.update(INSERT_DRINK_CHOICE_SQL, getOptionParamSource(orderDrinkId, optionId)));
+    private void saveDrinkChoice(OrderDrink drink, long orderDrinkId) {
+        drink.getOptions().forEach(option -> jdbcTemplate.update(INSERT_DRINK_CHOICE_SQL, getOptionParamSource(orderDrinkId, option.getId())));
     }
 
     @Override

@@ -2,6 +2,7 @@ package team04.kioskbe.order.util;
 
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import team04.kioskbe.domain.Option;
 import team04.kioskbe.order.domain.Order;
 import team04.kioskbe.order.domain.OrderDrink;
 import team04.kioskbe.order.domain.Payment;
@@ -52,31 +53,36 @@ public final class OrderRepositoryUtils {
             LocalDate orderDate = resultSet.getDate(ORDER_DATE_COLUMN).toLocalDate();
             LocalTime orderTime = resultSet.getTime(ORDER_TIME_COLUMN).toLocalTime();
 
-            List<Long> options = new ArrayList<>();
+            List<Option> options = new ArrayList<>();
             long optionId = resultSet.getLong(OPTION_ID_COLUMN);
-            options.add(optionId);
+            String optionName = resultSet.getString("option_name");
+            options.add(new Option(optionId, optionName));
 
             List<OrderDrink> orderDrinks = new ArrayList<>();
             long orderDrinkId = resultSet.getLong(ORDER_DRINK_ID_COLUMN);
             long drinkId = resultSet.getLong(DRINK_ID_COLUMN);
+            String drinkName = resultSet.getString("drink_name");
             int quantity = resultSet.getInt(QUANTITY_COLUMN);
             int orderPrice = resultSet.getInt(ORDER_PRICE_COLUMN);
-            orderDrinks.add(new OrderDrink(drinkId, quantity, orderPrice, options));
+            orderDrinks.add(new OrderDrink(drinkId, drinkName, quantity, orderPrice, options));
 
             while (resultSet.next()) {
                 long next = resultSet.getLong(ORDER_DRINK_ID_COLUMN);
                 if (next == orderDrinkId) {
                     long otherOption = resultSet.getLong(OPTION_ID_COLUMN);
-                    options.add(otherOption);
+                    optionName = resultSet.getString("option_name");
+                    options.add(new Option(otherOption, optionName));
                 } else {
                     options = new ArrayList<>();
                     long otherOption = resultSet.getLong(OPTION_ID_COLUMN);
-                    options.add(otherOption);
+                    optionName = resultSet.getString("option_name");
+                    options.add(new Option(otherOption, optionName));
                     orderDrinkId = resultSet.getLong(ORDER_DRINK_ID_COLUMN);
                     drinkId = resultSet.getLong(DRINK_ID_COLUMN);
+                    drinkName = resultSet.getString("drink_name");
                     quantity = resultSet.getInt(QUANTITY_COLUMN);
                     orderPrice = resultSet.getInt(ORDER_PRICE_COLUMN);
-                    orderDrinks.add(new OrderDrink(drinkId, quantity, orderPrice, options));
+                    orderDrinks.add(new OrderDrink(drinkId, drinkName, quantity, orderPrice, options));
                 }
             }
 

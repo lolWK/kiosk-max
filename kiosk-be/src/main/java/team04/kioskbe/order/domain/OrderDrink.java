@@ -1,5 +1,7 @@
 package team04.kioskbe.order.domain;
 
+import team04.kioskbe.domain.Option;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -8,12 +10,14 @@ public class OrderDrink {
     private Long id;
     private Long orderId;
     private final Long drinkId;
+    private final String name;
     private final int quantity;
     private final int orderPrice;
-    private final List<Long> options;
+    private final List<Option> options;
 
-    public OrderDrink(final Long drinkId, final int quantity, final int orderPrice, final List<Long> options) {
+    public OrderDrink(final Long drinkId, String name, final int quantity, final int orderPrice, final List<Option> options) {
         this.drinkId = drinkId;
+        this.name = name;
         this.quantity = quantity;
         this.orderPrice = orderPrice;
         this.options = options;
@@ -25,6 +29,10 @@ public class OrderDrink {
 
     public Long getOrderId() {
         return orderId;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Long getDrinkId() {
@@ -39,7 +47,7 @@ public class OrderDrink {
         return orderPrice;
     }
 
-    public List<Long> getOptions() {
+    public List<Option> getOptions() {
         return options;
     }
 
@@ -48,12 +56,11 @@ public class OrderDrink {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         final OrderDrink that = (OrderDrink) o;
-        return getQuantity() == that.getQuantity() && getOrderPrice() == that.getOrderPrice() && Objects.equals(getId(), that.getId()) && Objects.equals(getOrderId(), that.getOrderId()) && Objects.equals(getDrinkId(), that.getDrinkId()) && Objects.equals(getOptions(), that.getOptions());
+        return getQuantity() == that.getQuantity() && getOrderPrice() == that.getOrderPrice() && Objects.equals(getId(), that.getId()) && Objects.equals(getOrderId(), that.getOrderId()) && Objects.equals(getDrinkId(), that.getDrinkId()) && Objects.equals(getName(), that.getName()) && Objects.equals(getOptions(), that.getOptions());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getOrderId(), getDrinkId(), getQuantity(), getOrderPrice(), getOptions());
+        return Objects.hash(getId(), getOrderId(), getDrinkId(), getName(), getQuantity(), getOrderPrice(), getOptions());
     }
-
 }

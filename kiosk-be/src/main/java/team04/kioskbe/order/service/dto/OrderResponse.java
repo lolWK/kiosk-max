@@ -3,6 +3,7 @@ package team04.kioskbe.order.service.dto;
 import team04.kioskbe.order.domain.Order;
 
 import java.util.List;
+import java.util.Objects;
 
 public class OrderResponse {
 
@@ -53,5 +54,18 @@ public class OrderResponse {
 
     public int getChange() {
         return change;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final OrderResponse that = (OrderResponse) o;
+        return getDailyOrderId() == that.getDailyOrderId() && getReceivedAmount() == that.getReceivedAmount() && getTotalAmount() == that.getTotalAmount() && getChange() == that.getChange() && Objects.equals(getDrinks(), that.getDrinks()) && Objects.equals(getPayment(), that.getPayment());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getDailyOrderId(), getDrinks(), getPayment(), getReceivedAmount(), getTotalAmount(), getChange());
     }
 }

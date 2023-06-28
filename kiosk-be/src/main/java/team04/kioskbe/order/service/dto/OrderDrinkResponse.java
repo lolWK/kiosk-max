@@ -4,27 +4,37 @@ import team04.kioskbe.order.domain.OrderDrink;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class OrderDrinkResponse {
 
+    private int index;
     private String name;
     private int quantity;
     private List<OptionResponse> optionResponses;
 
-    public OrderDrinkResponse(final int quantity) {
+    public OrderDrinkResponse(int index, final String name, final int quantity, final List<OptionResponse> optionResponses) {
+        this.index = index;
+        this.name = name;
         this.quantity = quantity;
+        this.optionResponses = optionResponses;
     }
 
     public OrderDrinkResponse() {
     }
 
     public static List<OrderDrinkResponse> of(List<OrderDrink> drinks) {
-        return drinks.stream().map(OrderDrinkResponse::from).collect(Collectors.toUnmodifiableList());
+        AtomicInteger index = new AtomicInteger();
+        return drinks.stream().map((OrderDrink orderDrink) -> from(orderDrink, index.incrementAndGet())).collect(Collectors.toUnmodifiableList());
     }
 
-    public static OrderDrinkResponse from(OrderDrink orderDrink) {
-        return new OrderDrinkResponse(orderDrink.getQuantity());
+    public static OrderDrinkResponse from(OrderDrink orderDrink, int index) {
+        return new OrderDrinkResponse(index, orderDrink.getName(), orderDrink.getQuantity(), OptionResponse.of(orderDrink.getOptions()));
+    }
+
+    public int getIndex() {
+        return index;
     }
 
     public String getName() {
@@ -44,11 +54,11 @@ public class OrderDrinkResponse {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         final OrderDrinkResponse that = (OrderDrinkResponse) o;
-        return quantity == that.quantity && Objects.equals(name, that.name);
+        return index == that.index && getQuantity() == that.getQuantity() && Objects.equals(getName(), that.getName()) && Objects.equals(getOptionResponses(), that.getOptionResponses());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, quantity);
+        return Objects.hash(index, getName(), getQuantity(), getOptionResponses());
     }
 }

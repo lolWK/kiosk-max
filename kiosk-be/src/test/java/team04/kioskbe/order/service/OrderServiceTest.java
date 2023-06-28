@@ -4,7 +4,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import team04.kioskbe.domain.Option;
 import team04.kioskbe.order.domain.Order;
 import team04.kioskbe.order.domain.OrderDrink;
 import team04.kioskbe.order.domain.Payment;
@@ -48,11 +50,12 @@ class OrderServiceTest {
         String drinks = "SELECT id FROM drink";
         List<Long> drinksId = jdbcTemplate.queryForList(drinks, Collections.emptyMap(), Long.class);
 
-        String options = "SELECT id FROM drink_option";
-        List<Long> optionsId = jdbcTemplate.queryForList(options, Collections.emptyMap(), Long.class);
+        String options = "SELECT * FROM drink_option WHERE id=1 AND id=4";
+        List<Option> option = jdbcTemplate.queryForList(options, Collections.emptyMap(), Option.class);
 
-        OrderDrink orderDrink1 = new OrderDrink(drinksId.get(0), 5, 20000, optionsId);
-        OrderDrink orderDrink2 = new OrderDrink(drinksId.get(1), 2, 10000, optionsId);
+        OrderDrink orderDrink1 = new OrderDrink(drinksId.get(0), "아메리카노", 5, 20000, option);
+        OrderDrink orderDrink2 = new OrderDrink(drinksId.get(1), "콜드브루", 2, 10000, option);
+
 
         OrderRequest order = new OrderRequest(30000, 30000, Payment.CASH.name(), List.of(orderDrink1, orderDrink2));
 
@@ -71,14 +74,11 @@ class OrderServiceTest {
     @DisplayName("findOrderById(): 주문 번호로 조회하여 영수증 정보를 반환한다.")
     void findOrderById() {
         // given
-        String drinks = "SELECT id FROM drink";
-        List<Long> drinksId = jdbcTemplate.queryForList(drinks, Collections.emptyMap(), Long.class);
+        String options = "SELECT * FROM drink_option WHERE id IN (1, 4)";
+        List<Option> option = jdbcTemplate.query(options, Collections.emptyMap(), BeanPropertyRowMapper.newInstance(Option.class));
 
-        String options = "SELECT id FROM drink_option";
-        List<Long> optionsId = jdbcTemplate.queryForList(options, Collections.emptyMap(), Long.class);
-
-        OrderDrink orderDrink1 = new OrderDrink(drinksId.get(0), 5, 20000, optionsId);
-        OrderDrink orderDrink2 = new OrderDrink(drinksId.get(1), 2, 10000, optionsId);
+        OrderDrink orderDrink1 = new OrderDrink(1L, "americano", 5, 20000, option);
+        OrderDrink orderDrink2 = new OrderDrink(2L, "coldbrew", 2, 10000, option);
 
         Order order = new Order(30000, 30000, Payment.CASH, List.of(orderDrink1, orderDrink2));
 
@@ -92,7 +92,7 @@ class OrderServiceTest {
                 () -> assertThat(orderById.getReceivedAmount()).isEqualTo(30000),
                 () -> assertThat(orderById.getPayment()).isEqualTo(Payment.CASH.getName()),
                 () -> assertThat(orderById.getChange()).isEqualTo(0),
-                () -> assertThat(orderById.getDrinks()).containsExactlyInAnyOrder(OrderDrinkResponse.from(orderDrink1), OrderDrinkResponse.from(orderDrink2)),
+                () -> assertThat(orderById.getDrinks()).containsExactlyInAnyOrder(OrderDrinkResponse.from(orderDrink1, 1), OrderDrinkResponse.from(orderDrink2, 2)),
                 () -> assertThat(orderById.getDailyOrderId()).isEqualTo(1));
     }
 

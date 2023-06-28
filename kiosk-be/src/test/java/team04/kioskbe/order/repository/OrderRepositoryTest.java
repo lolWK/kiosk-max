@@ -6,12 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
+import team04.kioskbe.domain.Drink;
+import team04.kioskbe.domain.Option;
 import team04.kioskbe.order.domain.Order;
 import team04.kioskbe.order.domain.OrderDrink;
 import team04.kioskbe.order.domain.Payment;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -29,14 +33,12 @@ class OrderRepositoryTest {
     @DisplayName("save(): 주문을 저장하면 id를 반환한다.")
     void save() {
         // given
-        String drinks = "SELECT id FROM drink";
-        List<Long> drinksId = jdbcTemplate.queryForList(drinks, Collections.emptyMap(), Long.class);
+        List<Option> option = new ArrayList<>();
+        option.add(new Option(1L, "hot"));
+        option.add(new Option(2L, "cold"));
 
-        String options = "SELECT id FROM drink_option";
-        List<Long> optionsId = jdbcTemplate.queryForList(options, Collections.emptyMap(), Long.class);
-
-        OrderDrink orderDrink1 = new OrderDrink(drinksId.get(0), 5, 20000, optionsId);
-        OrderDrink orderDrink2 = new OrderDrink(drinksId.get(1), 2, 10000, optionsId);
+        OrderDrink orderDrink1 = new OrderDrink(1L, "americano", 5, 20000, option);
+        OrderDrink orderDrink2 = new OrderDrink(2L, "coldbrew", 2, 10000, option);
 
         Order order = new Order(30000, 30000, Payment.CASH, List.of(orderDrink1, orderDrink2));
 

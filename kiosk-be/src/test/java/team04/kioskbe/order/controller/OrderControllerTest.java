@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
+import team04.kioskbe.domain.Option;
 import team04.kioskbe.order.domain.OrderDrink;
 import team04.kioskbe.order.domain.Payment;
 import team04.kioskbe.order.service.OrderService;
@@ -60,11 +61,11 @@ class OrderControllerTest {
         String drinks = "SELECT id FROM drink";
         List<Long> drinksId = jdbcTemplate.queryForList(drinks, Collections.emptyMap(), Long.class);
 
-        String options = "SELECT id FROM drink_option";
-        List<Long> optionsId = jdbcTemplate.queryForList(options, Collections.emptyMap(), Long.class);
+        String options = "SELECT * FROM drink_option WHERE id=1 AND id=4";
+        List<Option> option = jdbcTemplate.queryForList(options, Collections.emptyMap(), Option.class);
 
-        OrderDrink orderDrink1 = new OrderDrink(drinksId.get(0), 5, 20000, optionsId);
-        OrderDrink orderDrink2 = new OrderDrink(drinksId.get(1), 2, 10000, optionsId);
+        OrderDrink orderDrink1 = new OrderDrink(drinksId.get(0), "아메리카노", 5, 20000, option);
+        OrderDrink orderDrink2 = new OrderDrink(drinksId.get(1), "콜드브루", 2, 10000, option);
 
         OrderRequest order = new OrderRequest(30000, 30000, Payment.CASH.name(), List.of(orderDrink1, orderDrink2));
 
@@ -86,11 +87,11 @@ class OrderControllerTest {
         String drinks = "SELECT id FROM drink";
         List<Long> drinksId = jdbcTemplate.queryForList(drinks, Collections.emptyMap(), Long.class);
 
-        String options = "SELECT id FROM drink_option";
-        List<Long> optionsId = jdbcTemplate.queryForList(options, Collections.emptyMap(), Long.class);
+        String options = "SELECT * FROM drink_option WHERE id=1 AND id=4";
+        List<Option> option = jdbcTemplate.queryForList(options, Collections.emptyMap(), Option.class);
 
-        OrderDrink orderDrink1 = new OrderDrink(drinksId.get(0), 5, 20000, optionsId);
-        OrderDrink orderDrink2 = new OrderDrink(drinksId.get(1), 2, 10000, optionsId);
+        OrderDrink orderDrink1 = new OrderDrink(drinksId.get(0), "아메리카노", 5, 20000, option);
+        OrderDrink orderDrink2 = new OrderDrink(drinksId.get(1), "콜드브루", 2, 10000, option);
 
         OrderRequest order = new OrderRequest(30000, 30000, Payment.CASH.name(), List.of(orderDrink1, orderDrink2));
 
