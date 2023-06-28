@@ -266,9 +266,8 @@ components:
           type: integer
           example: 20000
         options:
-          type: array
-          items:
-            example: [1, 4]
+          type: integer
+          example: [1, 4]
     Order-Drink-2:
       type: object
       properties:
@@ -284,7 +283,8 @@ components:
         options:
           type: array
           items:
-            example: [2]
+            type: integer
+            example: 2
 
     # Order Response
     Order-Response:
@@ -323,9 +323,8 @@ components:
           type: integer
           example: 5
         options:
-          type: array
-          items:
-            example: ["L", "HOT"]
+          type: string
+          example: ["L", "HOT"]
     Ordered-Coldbrew:
       type: object
       properties:
@@ -338,7 +337,7 @@ components:
         options:
           type: array
           items:
-            example: ["M"]
+            example: "M"
 
     # Option-Size
     Size-Big:
