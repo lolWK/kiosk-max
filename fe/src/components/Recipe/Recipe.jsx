@@ -3,20 +3,22 @@ import styles from './Recipe.module.css';
 
 const recipeData = {
   dailyOrderId: 1,
-  payment: 'cash',
+  payment: '현금결제',
   receivedAmount: 14000,
   totalAmount: 13500,
   change: 500,
   drinks: [
     {
-      id: 1,
+      index: 1,
       name: '아메리카노',
       quantity: 2,
+      optionResponses: ['L', 'HOT'],
     },
     {
-      id: 2,
+      index: 2,
       name: '카페라떼',
       quantity: 1,
+      optionResponses: ['L', 'ICE'],
     },
   ],
 };
@@ -36,7 +38,7 @@ export default function Recipe() {
     <div className={styles.container}>
       <div className={styles.recipe}>
         <h2 className={styles.orderNumber}>
-          주문번호
+          주문번호{' '}
           <span>
             {recipeData.dailyOrderId < 10
               ? `0${recipeData.dailyOrderId}`
@@ -48,8 +50,11 @@ export default function Recipe() {
           <ul>
             {recipeData.drinks.map((drink) => {
               return (
-                <li key={drink.id}>
+                <li key={drink.index}>
                   {drink.name} {drink.quantity}
+                  <span className={styles.option}>
+                    {` (${drink.optionResponses.join('/')})`}
+                  </span>
                 </li>
               );
             })}
@@ -57,7 +62,7 @@ export default function Recipe() {
         </div>
 
         <div className={styles.result}>
-          <p>결제방식: {recipeData.payment === 'cash' ? '현금' : '카드'}</p>
+          <p>결제방식: {recipeData.payment}</p>
           <p>투입금액: {recipeData.receivedAmount}</p>
           <p>총 결제금액: {recipeData.totalAmount}</p>
           <p>잔돈: {recipeData.change}</p>

@@ -14,9 +14,11 @@
   gap: 68px;
   z-index: 2;
 }
+
 .cashLists {
   width: 100%;
 }
+
 .cashLists ul {
   width: 100%;
   display: flex;
@@ -56,6 +58,7 @@
   border: none;
   border-radius: 17px;
   font-size: 28px;
+  font-weight: bold;
   color: #fcfeff;
 }
 

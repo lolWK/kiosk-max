@@ -38,6 +38,11 @@
   margin-bottom: 22px;
 }
 
+.option {
+  font-size: 18px;
+  margin-left: 10px;
+}
+
 .result {
   font-size: 28px;
   font-weight: bold;

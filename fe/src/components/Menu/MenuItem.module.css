@@ -1,6 +1,7 @@
 .item {
   background-color: #fcfeff;
   width: 240px;
+  height: 254px;
   flex-direction: column;
   display: flex;
   justify-content: center;
@@ -14,14 +15,21 @@
   flex-basis: 45%;
   cursor: pointer;
 }
+
 .item img {
   width: 118px;
   height: 127px;
   margin-bottom: 20px;
 }
+
 .item p {
   font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  word-break: keep-all;
+  color: #303345;
 }
+
 .item .name {
   margin-bottom: 13px;
 }

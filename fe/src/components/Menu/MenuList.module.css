@@ -1,3 +1,9 @@
+.main {
+  position: relative;
+  flex: 1;
+  overflow-y: scroll;
+}
+
 .container {
   width: 620px;
   display: flex;

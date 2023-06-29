@@ -2,6 +2,31 @@ import { useState, useEffect, useRef } from 'react';
 import MenuItem from './MenuItem';
 import styles from './MenuList.module.css';
 
+export default function MenuList({
+  menuItems,
+  setShowMode,
+  handleItemSelect,
+  selectedTab,
+}) {
+  const animate = useTabAnimation(selectedTab);
+  return (
+    <div className={styles.main}>
+      <div
+        className={`${styles.container} ${animate ? styles.fadeInFromTop : ''}`}
+      >
+        {menuItems.map((menu) => (
+          <MenuItem
+            key={menu.id}
+            menu={menu}
+            setShowMode={setShowMode}
+            handleItemSelect={handleItemSelect}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function useTabAnimation(currentTab) {
   const previousTab = useRef(null);
   const [animate, setAnimate] = useState(false);
@@ -18,27 +43,4 @@ export function useTabAnimation(currentTab) {
   }, [currentTab]);
 
   return animate;
-}
-
-export default function MenuList({
-  menuItems,
-  setShowMode,
-  handleItemSelect,
-  selectedTab,
-}) {
-  const animate = useTabAnimation(selectedTab);
-  return (
-    <div
-      className={`${styles.container} ${animate ? styles.fadeInFromTop : ''}`}
-    >
-      {menuItems.map((menu) => (
-        <MenuItem
-          key={menu.id}
-          menu={menu}
-          setShowMode={setShowMode}
-          handleItemSelect={handleItemSelect}
-        />
-      ))}
-    </div>
-  );
 }

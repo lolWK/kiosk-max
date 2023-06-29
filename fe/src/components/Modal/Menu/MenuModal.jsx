@@ -24,16 +24,16 @@ export default function MenuModal({
   handleAddCartItem,
 }) {
   const [cartItem, setCartItem] = useState(initCartItem(selectedItem));
-  const [itemStatus, setItemStatus] = useState(false);
-  const [modalStatus, setModalStatus] = useState(false);
-  const [dimStatus, setDimStatus] = useState(false);
+  const [cartInAnimate, setCartInAnimate] = useState(false);
 
   return (
     <div>
-      <Dim dimStatus={dimStatus} />
+      <Dim cartInAnimate={cartInAnimate} />
       <div
         className={
-          modalStatus ? `${styles.wrapper} ${styles.done}` : `${styles.wrapper}`
+          cartInAnimate
+            ? `${styles.wrapper} ${styles.cartInAnimate}`
+            : `${styles.wrapper}`
         }
       >
         <div className={styles.container}>
@@ -41,17 +41,14 @@ export default function MenuModal({
             selectedItem={selectedItem}
             cartItem={cartItem}
             setCartItem={setCartItem}
-            itemStatus={itemStatus}
-            modalStatus={modalStatus}
+            cartInAnimate={cartInAnimate}
           />
           <Decision
             setShowMode={setShowMode}
             cartItem={cartItem}
             setCartItem={setCartItem}
             handleAddCartItem={handleAddCartItem}
-            setItemStatus={setItemStatus}
-            setModalStatus={setModalStatus}
-            setDimStatus={setDimStatus}
+            setCartInAnimate={setCartInAnimate}
           />
         </div>
       </div>

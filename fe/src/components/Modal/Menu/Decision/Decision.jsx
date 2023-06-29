@@ -5,15 +5,11 @@ export default function Decision({
   setShowMode,
   cartItem,
   handleAddCartItem,
-  setItemStatus,
-  setModalStatus,
-  setDimStatus,
+  setCartInAnimate,
 }) {
   const handleClickWrapper = () => {
     handleAddCartItem(cartItem);
-    setItemStatus(true);
-    setModalStatus(true);
-    setDimStatus(true);
+    setCartInAnimate(true);
 
     setTimeout(() => {
       setShowMode('');

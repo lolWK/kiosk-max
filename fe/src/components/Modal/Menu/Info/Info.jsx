@@ -5,11 +5,11 @@ export default function Info({
   selectedItem,
   cartItem,
   setCartItem,
-  itemStatus,
+  cartInAnimate,
 }) {
   return (
     <div className={styles.info}>
-      <Menu selectedItem={selectedItem} itemStatus={itemStatus} />
+      <Menu selectedItem={selectedItem} cartInAnimate={cartInAnimate} />
       <Options
         selectedItem={selectedItem}
         cartItem={cartItem}
@@ -19,13 +19,15 @@ export default function Info({
   );
 }
 
-function Menu({ selectedItem, itemStatus }) {
+function Menu({ selectedItem, cartInAnimate }) {
   const { img, name, price } = selectedItem;
 
   return (
     <div
       className={
-        itemStatus ? `${styles.menu} ${styles.added}` : `${styles.menu}`
+        cartInAnimate
+          ? `${styles.menu} ${styles.cartInAnimate}`
+          : `${styles.menu}`
       }
     >
       <img src={img} alt={name} />

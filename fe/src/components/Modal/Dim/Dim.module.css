@@ -9,7 +9,7 @@
   z-index: 1;
 }
 
-.disappear {
+.cartInAnimate {
   transition: opacity 1s;
   opacity: 0;
 }

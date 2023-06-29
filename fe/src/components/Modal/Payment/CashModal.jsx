@@ -1,34 +1,6 @@
 import { useState, useEffect } from 'react';
 import styles from './CashModal.module.css';
 
-// cartItem 데이터
-// {
-//   listId: Date.now(),
-//   drinkId: item.id,
-//   name: item.name,
-//   img: item.img,
-//   price: item.price,
-//   quantity: 1,
-//   size: item.options.find((option) => option.type === 'size').value[0].id,
-//   temperature: item.options.find((option) => option.type === 'temperature')
-//     .value[0].id,
-// }
-
-// 우리가 줘야하는 데이터
-// {
-//   totalAmount: orderPrice,
-//   receivedAmount: totalInput,
-//   payment: 'cash',
-//   drink: [
-//       {
-//         drinkId: cartItem.drinkId,
-//         quantity: cartItem.quantity,
-//         orderPrice: cartItem.price * cartItem.quantity,
-//         options: [cartItem.size, cartItem.temperature],
-//       }, ...
-//     ]
-// }
-
 export default function CashModal({
   setShowMode,
   orderPrice,

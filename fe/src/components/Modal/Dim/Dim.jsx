@@ -1,10 +1,12 @@
 import styles from './Dim.module.css';
 
-export default function Dim({ dimStatus }) {
+export default function Dim({ cartInAnimate }) {
   return (
     <div
       className={
-        dimStatus ? `${styles.dim} ${styles.disappear}` : `${styles.dim}`
+        cartInAnimate
+          ? `${styles.dim} ${styles.cartInAnimate}`
+          : `${styles.dim}`
       }
     />
   );

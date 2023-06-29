@@ -3,7 +3,6 @@ import styles from './App.module.css';
 import CategoryTab from './components/CategoryTab/CategoryTab';
 import MenuList from './components/Menu/MenuList';
 import MenuModal from './components/Modal/Menu/MenuModal';
-import Dim from './components/Modal/Dim/Dim';
 import Cart from './components/Cart/Cart';
 
 export default function App() {
@@ -40,18 +39,16 @@ export default function App() {
   };
 
   const handleAddCartItem = (cartItem) => {
-    const isSameDrink = cartList.filter(
+    const sameDrinkIndex = cartList.findIndex(
       (item) =>
         item.drinkId === cartItem.drinkId &&
         item.size === cartItem.size &&
         item.temperature === cartItem.temperature
-    ).length;
+    );
 
-    if (isSameDrink) {
-      const newCartList = cartList.map((item) => {
-        return item.drinkId === cartItem.drinkId &&
-          item.size === cartItem.size &&
-          item.temperature === cartItem.temperature
+    if (sameDrinkIndex >= 0) {
+      const newCartList = cartList.map((item, index) => {
+        return index === sameDrinkIndex
           ? { ...item, quantity: item.quantity + cartItem.quantity }
           : item;
       });
@@ -93,17 +90,12 @@ export default function App() {
         setShowMode={setShowMode}
       />
       {showMode === 'menu' && (
-        <>
-          <Dim />
-          <MenuModal
-            selectedItem={selectedItem}
-            setShowMode={setShowMode}
-            handleAddCartItem={handleAddCartItem}
-          />
-        </>
+        <MenuModal
+          selectedItem={selectedItem}
+          setShowMode={setShowMode}
+          handleAddCartItem={handleAddCartItem}
+        />
       )}
-      {showMode === 'card' && <Dim />}
-      {showMode === 'cash' && <Dim />}
     </div>
   );
 }
