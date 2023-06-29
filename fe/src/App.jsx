@@ -14,38 +14,7 @@ export default function App() {
   const [cartList, setCartList] = useState([]);
 
   useEffect(() => {
-    fetch('/cart', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        totalAmount: 30000,
-        receivedAmount: 30000,
-        payment: 'CASH',
-        drinks: [
-          {
-            drinkId: 1,
-            quantity: 5,
-            orderPrice: 20000,
-            options: [1, 4],
-          },
-          {
-            drinkId: 2,
-            quantity: 2,
-            orderPrice: 10000,
-            options: [2],
-          },
-        ],
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.error('Error:', error));
-  }, []);
-
-  useEffect(() => {
-    fetch(`http://52.79.68.54:8080/categories`)
+    fetch(`http://52.79.68.54:8080/drinks/categories`)
       .then((response) => response.json())
       .then((data) => {
         setCategoryLists(data);
@@ -53,7 +22,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    fetch(`http://52.79.68.54:8080/drinks?category=${selectedTab}`)
+    fetch(`http://52.79.68.54:8080/drinks?type=${selectedTab}`)
       .then((response) => response.json())
       .then((data) => {
         setDrinksLists(data);

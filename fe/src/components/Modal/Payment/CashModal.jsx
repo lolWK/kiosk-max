@@ -1,7 +1,19 @@
 import { useState } from 'react';
 import styles from './CashModal.module.css';
 
-export default function CashModal({ setShowMode, orderPrice, postData }) {
+const cashLists = [
+  { id: 1, value: 100 },
+  { id: 2, value: 500 },
+  { id: 3, value: 1000 },
+  { id: 4, value: 10000 },
+];
+
+export default function CashModal({
+  setShowMode,
+  orderPrice,
+  postData,
+  setRecipeData,
+}) {
   const [totalInput, setTotalInput] = useState(0);
 
   const cashData = {
@@ -10,17 +22,24 @@ export default function CashModal({ setShowMode, orderPrice, postData }) {
     payment: 'CASH',
   };
 
-  console.log(cashData);
-
-  const cashLists = [
-    { id: 1, value: 100 },
-    { id: 2, value: 500 },
-    { id: 3, value: 1000 },
-    { id: 4, value: 10000 },
-  ];
-
   const handleClickCash = (price) => {
     setTotalInput(totalInput + price);
+  };
+
+  const handleCashButtonClick = () => {
+    fetch('http://52.79.68.54:8080/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(cashData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setRecipeData(data);
+      });
+
+    setShowMode('recipe');
   };
 
   const isAffordable = totalInput >= orderPrice;
@@ -51,7 +70,7 @@ export default function CashModal({ setShowMode, orderPrice, postData }) {
           isAffordable ? styles.paymentButtonActive : ''
         }`}
         disabled={!isAffordable}
-        onClick={() => setShowMode('recipe')}
+        onClick={() => handleCashButtonClick()}
       >
         현금결제하기
       </button>

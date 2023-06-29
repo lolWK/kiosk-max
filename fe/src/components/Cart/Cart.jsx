@@ -19,6 +19,7 @@ export default function Cart({
   const [resetTimer, setResetTimer] = useState(0);
   const [tempList, setTempList] = useState([]);
   const [orderPrice, setOrderPrice] = useState(0);
+  const [recipeData, setRecipeData] = useState(null);
 
   useEffect(() => {
     if (cartList.length > 0) {
@@ -35,17 +36,24 @@ export default function Cart({
   const drinkList = cartList.map((cartItem) => {
     return {
       drinkId: cartItem.drinkId,
+      name: cartItem.name,
       quantity: cartItem.quantity,
       orderPrice: cartItem.price * cartItem.quantity,
-      options: [cartItem.size, cartItem.temperature],
+      options: [{ id: cartItem.size }, { id: cartItem.temperature }],
     };
   });
 
   const postData = {
     totalAmount: orderPrice,
-    payment: 'CARD',
     drinks: [...drinkList],
   };
+
+  // const cardData = {
+  //   ...postData,
+  //   payment: 'CARD',
+  // };
+
+  // console.log(cardData);
 
   useEffect(() => {
     const price = cartList.reduce(
@@ -127,10 +135,15 @@ export default function Cart({
             setShowMode={setShowMode}
             orderPrice={orderPrice}
             postData={postData}
+            setRecipeData={setRecipeData}
           />
         </>
       )}
-      {showMode === 'recipe' && <Recipe setShowMode={setShowMode} />}
+      {showMode === 'recipe' && recipeData ? (
+        <Recipe setShowMode={setShowMode} recipeData={recipeData} />
+      ) : (
+        <p>loading...</p>
+      )}
     </div>
   );
 }

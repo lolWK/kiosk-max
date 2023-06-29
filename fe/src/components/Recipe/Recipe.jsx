@@ -1,39 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from './Recipe.module.css';
 
-const recipeData = {
-  dailyOrderId: 1,
-  payment: '현금결제',
-  receivedAmount: 14000,
-  totalAmount: 13500,
-  change: 500,
-  drinks: [
-    {
-      index: 1,
-      name: '아메리카노',
-      quantity: 2,
-      optionResponses: ['L', 'HOT'],
-    },
-    {
-      index: 2,
-      name: '카페라떼',
-      quantity: 1,
-      optionResponses: ['L', 'ICE'],
-    },
-  ],
-};
-
-export default function Recipe({ setShowMode }) {
-  // const [recipeData, setRecipeData] = useState({});
-
-  // useEffect(() => {
-  //   fetch(`https://example.com/api/recipe`)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setRecipeData(data);
-  //     });
-  // }, []);
-
+export default function Recipe({ setShowMode, recipeData }) {
   const [timer, setTimer] = useState(10);
 
   useEffect(() => {
