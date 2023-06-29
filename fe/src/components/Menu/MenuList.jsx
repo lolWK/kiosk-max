@@ -8,8 +8,9 @@ export default function MenuList({
   handleItemSelect,
   selectedTab,
 }) {
-  const animate = useTabAnimation(selectedTab);
+  const maxQuantity = Math.max(...menuItems.map((item) => item.totalQuantity));
 
+  const animate = useTabAnimation(selectedTab);
   return (
     <div className={styles.main}>
       <div
@@ -21,6 +22,9 @@ export default function MenuList({
             menu={menu}
             setShowMode={setShowMode}
             handleItemSelect={handleItemSelect}
+            isPopularDrink={
+              menu.totalQuantity === maxQuantity && maxQuantity > 5
+            }
           />
         ))}
       </div>
