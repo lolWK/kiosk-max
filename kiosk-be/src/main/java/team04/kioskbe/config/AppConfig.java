@@ -28,7 +28,7 @@ public class AppConfig {
                 registry.addMapping("/drinks/categories").allowedOrigins("http://52.79.68.54:3000","http://localhost:3000");
                 registry.addMapping("/orders/payments").allowedOrigins("http://52.79.68.54:3000","http://localhost:3000");
                 registry.addMapping("/orders").allowedOrigins("http://52.79.68.54:3000","http://localhost:3000");
-                registry.addMapping("/greeting-javaconfig").allowedOrigins("http://52.79.68.54:3000","http://localhost:3000");
+                registry.addMapping("/orders/*").allowedOrigins("http://52.79.68.54:3000","http://localhost:3000");
             }
         };
     }

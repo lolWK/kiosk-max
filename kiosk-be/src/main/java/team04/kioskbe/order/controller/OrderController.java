@@ -1,7 +1,9 @@
 package team04.kioskbe.order.controller;
 
-import java.net.URI;
+import static org.springframework.http.HttpStatus.MOVED_PERMANENTLY;
+
 import java.util.List;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,12 +33,14 @@ public class OrderController {
     }
 
     @PostMapping("/orders")
-    public ResponseEntity<String> saveOrder(@RequestBody OrderRequest orderRequest) {
+    public ResponseEntity<Void> saveOrder(@RequestBody OrderRequest orderRequest) {
         String payment = orderRequest.getPayment();
         long saved = payment.equals(Payment.CASH.name())
                 ? orderService.payByCash(orderRequest)
                 : orderService.payByCard(orderRequest);
-        return ResponseEntity.created(URI.create("/orders/" + saved)).build();
+        String url = "/orders/" + saved;
+        return ResponseEntity.status(MOVED_PERMANENTLY).header(HttpHeaders.LOCATION, url)
+                .header(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, HttpHeaders.LOCATION).build();
     }
 
 
