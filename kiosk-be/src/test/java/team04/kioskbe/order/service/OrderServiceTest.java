@@ -60,7 +60,7 @@ class OrderServiceTest {
         OrderRequest order = new OrderRequest(30000, 30000, Payment.CASH.name(), List.of(orderDrink1, orderDrink2));
 
         // when
-        long orderId = orderService.save(order);
+        long orderId = orderService.payByCash(order);
 
         // then
         Order findOrder = orderRepository.findById(orderId);

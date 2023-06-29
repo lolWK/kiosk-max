@@ -24,11 +24,11 @@ public class AppConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/drinks").allowedOrigins("http://localhost:3000");
-                registry.addMapping("/drinks/categories").allowedOrigins("http://localhost:3000");
-                registry.addMapping("/orders/payments").allowedOrigins("http://localhost:3000");
-                registry.addMapping("/orders").allowedOrigins("http://localhost:3000");
-                registry.addMapping("/greeting-javaconfig").allowedOrigins("http://localhost:3000");
+                registry.addMapping("/drinks").allowedOrigins("http://52.79.68.54:3000","http://localhost:3000");
+                registry.addMapping("/drinks/categories").allowedOrigins("http://52.79.68.54:3000","http://localhost:3000");
+                registry.addMapping("/orders/payments").allowedOrigins("http://52.79.68.54:3000","http://localhost:3000");
+                registry.addMapping("/orders").allowedOrigins("http://52.79.68.54:3000","http://localhost:3000");
+                registry.addMapping("/greeting-javaconfig").allowedOrigins("http://52.79.68.54:3000","http://localhost:3000");
             }
         };
     }
