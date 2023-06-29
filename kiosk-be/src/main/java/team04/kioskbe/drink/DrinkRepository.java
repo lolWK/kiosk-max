@@ -1,4 +1,4 @@
-package team04.kioskbe.Drink;
+package team04.kioskbe.drink;
 
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -44,7 +44,7 @@ public class DrinkRepository {
         return drinkList;
     }
 
-    public class DrinkListResultSetExtractor implements ResultSetExtractor<List<Drink>> {
+    public static class DrinkListResultSetExtractor implements ResultSetExtractor<List<Drink>> {
         @Override
         public List<Drink> extractData(ResultSet rs) throws SQLException {
             List<Drink> drinkList = new ArrayList<>();

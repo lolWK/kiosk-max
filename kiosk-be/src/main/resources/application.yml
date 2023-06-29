@@ -1,3 +1,5 @@
 spring:
   profiles:
     include: devdb
+server:
+  port: 5000

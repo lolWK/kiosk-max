@@ -1,4 +1,4 @@
-package team04.kioskbe.Drink;
+package team04.kioskbe.drink;
 
 import java.util.List;
 import java.util.Map;
