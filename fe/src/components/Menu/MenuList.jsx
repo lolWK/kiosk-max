@@ -9,6 +9,7 @@ export default function MenuList({
   selectedTab,
 }) {
   const animate = useTabAnimation(selectedTab);
+
   return (
     <div className={styles.main}>
       <div
@@ -32,14 +33,16 @@ export function useTabAnimation(currentTab) {
   const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
-    if (currentTab !== previousTab.current) {
-      setAnimate(true);
-      previousTab.current = currentTab;
+    setAnimate(true);
+    const timer = setTimeout(() => {
+      setAnimate(false);
+    }, 300);
 
-      const timer = setTimeout(() => setAnimate(false), 300);
+    return () => clearTimeout(timer);
+  }, [currentTab]);
 
-      return () => clearTimeout(timer);
-    }
+  useEffect(() => {
+    previousTab.current = currentTab;
   }, [currentTab]);
 
   return animate;

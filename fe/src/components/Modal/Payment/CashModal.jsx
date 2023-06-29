@@ -1,21 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styles from './CashModal.module.css';
 
-export default function CashModal({
-  setShowMode,
-  orderPrice,
-  postData,
-  setPostData,
-}) {
+export default function CashModal({ setShowMode, orderPrice, postData }) {
   const [totalInput, setTotalInput] = useState(0);
 
-  useEffect(() => {
-    setPostData({
-      ...postData,
-      receivedAmount: totalInput,
-      payment: 'CASH',
-    });
-  }, []);
+  const cashData = {
+    ...postData,
+    receivedAmount: totalInput,
+    payment: 'CASH',
+  };
+
+  console.log(cashData);
 
   const cashLists = [
     { id: 1, value: 100 },

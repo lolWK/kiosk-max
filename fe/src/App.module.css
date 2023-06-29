@@ -147,4 +147,5 @@ body {
   display: flex;
   flex-direction: column;
   background-color: #eeeeee;
+  border: 3px solid #303345;
 }

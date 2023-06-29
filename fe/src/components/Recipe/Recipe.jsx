@@ -1,4 +1,4 @@
-// import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './Recipe.module.css';
 
 const recipeData = {
@@ -23,7 +23,7 @@ const recipeData = {
   ],
 };
 
-export default function Recipe() {
+export default function Recipe({ setShowMode }) {
   // const [recipeData, setRecipeData] = useState({});
 
   // useEffect(() => {
@@ -34,11 +34,24 @@ export default function Recipe() {
   //     });
   // }, []);
 
+  const [timer, setTimer] = useState(10);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (timer > 1);
+      setTimer(timer - 1);
+
+      if (timer === 1) {
+        setShowMode('');
+      }
+    }, 1000);
+  }, [timer]);
+
   return (
     <div className={styles.container}>
       <div className={styles.recipe}>
         <h2 className={styles.orderNumber}>
-          주문번호{' '}
+          주문번호
           <span>
             {recipeData.dailyOrderId < 10
               ? `0${recipeData.dailyOrderId}`
@@ -70,7 +83,7 @@ export default function Recipe() {
       </div>
 
       <p className={styles.timeText}>이 화면은 10초뒤에 자동으로 사라집니다</p>
-      <div className={styles.time}>6초</div>
+      <div className={styles.time}>{timer}</div>
     </div>
   );
 }

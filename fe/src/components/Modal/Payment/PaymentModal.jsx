@@ -2,21 +2,9 @@ import styles from './PaymentModal.module.css';
 
 export default function PaymentModal({
   setShowMode,
-  setCartList,
-  tempList,
-  setTempList,
+  handleCloseButton,
+  handleCashButton,
 }) {
-  const handleCloseButton = () => {
-    setCartList(tempList);
-    setTempList([]);
-    setShowMode('');
-  };
-
-  const handleCashButton = () => {
-    setShowMode('cash');
-    setCartList(tempList);
-  };
-
   return (
     <div className={styles.container}>
       <button

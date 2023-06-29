@@ -19,9 +19,6 @@ export default function Cart({
   const [resetTimer, setResetTimer] = useState(0);
   const [tempList, setTempList] = useState([]);
   const [orderPrice, setOrderPrice] = useState(0);
-  const [postData, setPostData] = useState({
-    totalAmount: orderPrice,
-  });
 
   useEffect(() => {
     if (cartList.length > 0) {
@@ -35,22 +32,20 @@ export default function Cart({
     setResetTimer((prevResetTimer) => prevResetTimer + 1);
   }, [cartList]);
 
-  useEffect(() => {
-    const drinkList = cartList.map((cartItem) => {
-      return {
-        drinkId: cartItem.drinkId,
-        quantity: cartItem.quantity,
-        orderPrice: cartItem.price * cartItem.quantity,
-        options: [cartItem.size, cartItem.temperature],
-      };
-    });
+  const drinkList = cartList.map((cartItem) => {
+    return {
+      drinkId: cartItem.drinkId,
+      quantity: cartItem.quantity,
+      orderPrice: cartItem.price * cartItem.quantity,
+      options: [cartItem.size, cartItem.temperature],
+    };
+  });
 
-    setPostData({
-      ...postData,
-      payment: 'CARD',
-      drinks: [...drinkList],
-    });
-  }, []);
+  const postData = {
+    totalAmount: orderPrice,
+    payment: 'CARD',
+    drinks: [...drinkList],
+  };
 
   useEffect(() => {
     const price = cartList.reduce(
@@ -64,6 +59,17 @@ export default function Cart({
     setShowMode('payment');
     setTempList(cartList);
     setCartList([]);
+  };
+
+  const handleCloseButton = () => {
+    setCartList(tempList);
+    setTempList([]);
+    setShowMode('');
+  };
+
+  const handleCashButton = () => {
+    setShowMode('cash');
+    setCartList(tempList);
   };
 
   return (
@@ -103,9 +109,8 @@ export default function Cart({
           <Dim />
           <PaymentModal
             setShowMode={setShowMode}
-            setCartList={setCartList}
-            tempList={tempList}
-            setTempList={setTempList}
+            handleCloseButton={handleCloseButton}
+            handleCashButton={handleCashButton}
           />
         </>
       )}
@@ -122,11 +127,10 @@ export default function Cart({
             setShowMode={setShowMode}
             orderPrice={orderPrice}
             postData={postData}
-            setPostData={setPostData}
           />
         </>
       )}
-      {showMode === 'recipe' && <Recipe />}
+      {showMode === 'recipe' && <Recipe setShowMode={setShowMode} />}
     </div>
   );
 }
