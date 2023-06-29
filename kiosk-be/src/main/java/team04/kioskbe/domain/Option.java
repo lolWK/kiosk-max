@@ -4,9 +4,9 @@ import java.util.Objects;
 
 public class Option {
 
-    private final Long id;
-    private final String type;
-    private final String value;
+    private Long id;
+    private String type;
+    private String value;
 
     public Option(Long id, String type, String value) {
         this.id = id;
