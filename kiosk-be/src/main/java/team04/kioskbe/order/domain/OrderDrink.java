@@ -9,11 +9,14 @@ public class OrderDrink {
 
     private Long id;
     private Long orderId;
-    private final Long drinkId;
-    private final String name;
-    private final int quantity;
-    private final int orderPrice;
-    private final List<Option> options;
+    private Long drinkId;
+    private String name;
+    private int quantity;
+    private int orderPrice;
+    private List<Option> options;
+
+    public OrderDrink() {
+    }
 
     public OrderDrink(final Long drinkId, String name, final int quantity, final int orderPrice, final List<Option> options) {
         this.drinkId = drinkId;

@@ -46,7 +46,9 @@ public class OrderDrinkResponse {
     }
 
     public List<String> getOptionResponses() {
-        return List.of("L", "HOT");
+        return optionResponses.stream()
+                .map(OptionResponse::getName)
+                .collect(Collectors.toList());
     }
 
     @Override

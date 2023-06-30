@@ -1,4 +1,4 @@
-package team04.kioskbe.Drink;
+package team04.kioskbe.drink;
 
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -35,16 +35,15 @@ public class DrinkRepository {
                 "LEFT JOIN order_info oi ON od.order_id = oi.id AND oi.order_date = CURDATE() " +
                 "WHERE d.type = :category " +
                 "GROUP BY d.id, d.name, d.img, d.price, do.type, do.value, do.id " +
-                "ORDER BY daily_sold_quantity DESC";
+                "ORDER BY daily_sold_quantity DESC, id,option_id";
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("category", category);
 
-        List<Drink> drinkList = namedParameterJdbcTemplate.query(sql, params, new DrinkListResultSetExtractor());
-        return drinkList;
+        return namedParameterJdbcTemplate.query(sql, params, new DrinkListResultSetExtractor());
     }
 
-    public class DrinkListResultSetExtractor implements ResultSetExtractor<List<Drink>> {
+    public static class DrinkListResultSetExtractor implements ResultSetExtractor<List<Drink>> {
         @Override
         public List<Drink> extractData(ResultSet rs) throws SQLException {
             List<Drink> drinkList = new ArrayList<>();

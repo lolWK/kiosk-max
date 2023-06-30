@@ -1,4 +1,4 @@
-package team04.kioskbe.Drink;
+package team04.kioskbe.drink;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

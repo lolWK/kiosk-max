@@ -4,13 +4,13 @@ import java.util.List;
 
 public class Drink {
 
-    private final Long id;
-    private final String name;
-    private final String img;
-    private final int price;
-    private final int totalQuantity;
-    private final Category category;
-    private final List<Option> options;
+    private Long id;
+    private String name;
+    private String img;
+    private int price;
+    private int totalQuantity;
+    private Category category;
+    private List<Option> options;
 
     private Drink(Builder builder) {
         this.id = builder.id;
@@ -58,6 +58,7 @@ public class Drink {
     }
 
     public static class Builder {
+
         private Long id;
         private String name;
         private String img;

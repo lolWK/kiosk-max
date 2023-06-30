@@ -1,4 +1,4 @@
-package team04.kioskbe.Drink;
+package team04.kioskbe.drink;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

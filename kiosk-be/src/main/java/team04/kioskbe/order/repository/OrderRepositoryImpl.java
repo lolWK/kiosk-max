@@ -50,13 +50,13 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Transactional
-    private void saveOrderDrinks(final Order order, final long orderId) {
+    void saveOrderDrinks(final Order order, final long orderId) {
         order.getDrinks().forEach(drink -> saveOrderDrink(orderId, drink));
 
     }
 
     @Transactional
-    private void saveOrderDrink(long orderId, OrderDrink drink) {
+    void saveOrderDrink(long orderId, OrderDrink drink) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(INSERT_ORDER_DRINK_SQL, getOrderDrinkParamSource(orderId, drink), keyHolder);
@@ -65,7 +65,7 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Transactional
-    private void saveDrinkChoice(OrderDrink drink, long orderDrinkId) {
+    void saveDrinkChoice(OrderDrink drink, long orderDrinkId) {
         drink.getOptions().forEach(option -> jdbcTemplate.update(INSERT_DRINK_CHOICE_SQL, getOptionParamSource(orderDrinkId, option.getId())));
     }
 
