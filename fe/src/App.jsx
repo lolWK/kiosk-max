@@ -10,7 +10,7 @@ export default function App() {
   const [selectedTab, setSelectedTab] = useState('coffee');
   const [drinksLists, setDrinksLists] = useState([]);
   const [selectedItem, setSelectedItem] = useState({});
-  const [showMode, setShowMode] = useState('');
+  const [modalType, setModalType] = useState('');
   const [cartList, setCartList] = useState([]);
 
   useEffect(() => {
@@ -79,20 +79,20 @@ export default function App() {
       <MenuList
         menuItems={drinksLists}
         selectedTab={selectedTab}
-        setShowMode={setShowMode}
+        setModalType={setModalType}
         handleItemSelect={handleItemSelect}
       />
       <Cart
         cartList={cartList}
         setCartList={setCartList}
         handleRemoveCartItem={handleRemoveCartItem}
-        showMode={showMode}
-        setShowMode={setShowMode}
+        modalType={modalType}
+        setModalType={setModalType}
       />
-      {showMode === 'menu' && (
+      {modalType === 'menu' && (
         <MenuModal
           selectedItem={selectedItem}
-          setShowMode={setShowMode}
+          setModalType={setModalType}
           handleAddCartItem={handleAddCartItem}
         />
       )}

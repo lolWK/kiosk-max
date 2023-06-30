@@ -20,7 +20,7 @@ const initCartItem = (item) => {
 
 export default function MenuModal({
   selectedItem,
-  setShowMode,
+  setModalType,
   handleAddCartItem,
 }) {
   const [cartItem, setCartItem] = useState(initCartItem(selectedItem));
@@ -44,7 +44,7 @@ export default function MenuModal({
             cartInAnimate={cartInAnimate}
           />
           <Decision
-            setShowMode={setShowMode}
+            setModalType={setModalType}
             cartItem={cartItem}
             setCartItem={setCartItem}
             handleAddCartItem={handleAddCartItem}

@@ -4,13 +4,14 @@ import styles from './MenuList.module.css';
 
 export default function MenuList({
   menuItems,
-  setShowMode,
+  setModalType,
   handleItemSelect,
   selectedTab,
 }) {
   const maxQuantity = Math.max(...menuItems.map((item) => item.totalQuantity));
 
   const animate = useTabAnimation(selectedTab);
+
   return (
     <div className={styles.main}>
       <div
@@ -20,7 +21,7 @@ export default function MenuList({
           <MenuItem
             key={menu.id}
             menu={menu}
-            setShowMode={setShowMode}
+            setModalType={setModalType}
             handleItemSelect={handleItemSelect}
             isPopularDrink={
               menu.totalQuantity === maxQuantity && maxQuantity > 5

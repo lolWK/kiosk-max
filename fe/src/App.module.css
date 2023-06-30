@@ -145,6 +145,7 @@ body {
   width: 900px;
   height: 100vh;
   display: flex;
+  position: relative;
   flex-direction: column;
   background-color: #eeeeee;
   border: 3px solid #303345;

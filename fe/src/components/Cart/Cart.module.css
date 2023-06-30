@@ -36,3 +36,7 @@
   padding: 52px 0;
   background-color: #eb3557;
 }
+
+.nothing {
+  display: none;
+}

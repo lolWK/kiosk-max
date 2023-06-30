@@ -9,10 +9,11 @@ const cashLists = [
 ];
 
 export default function CashModal({
-  setShowMode,
+  setModalType,
   orderPrice,
   postData,
   setRecipeData,
+  setCartList,
 }) {
   const [totalInput, setTotalInput] = useState(0);
 
@@ -39,7 +40,8 @@ export default function CashModal({
         setRecipeData(data);
       });
 
-    setShowMode('recipe');
+    setModalType('recipe');
+    setCartList([]);
   };
 
   const isAffordable = totalInput >= orderPrice;

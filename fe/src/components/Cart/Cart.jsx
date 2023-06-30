@@ -6,20 +6,22 @@ import PaymentModal from '../Modal/Payment/PaymentModal';
 import Loading from '../Loading/Loading';
 import CashModal from '../Modal/Payment/CashModal';
 import Recipe from '../Recipe/Recipe';
+import ErrorMessage from '../Modal/ErrorMessage/ErrorMessage';
 import Timer from './Timer';
 
 export default function Cart({
   cartList,
   setCartList,
   handleRemoveCartItem,
-  showMode,
-  setShowMode,
+  modalType,
+  setModalType,
 }) {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [resetTimer, setResetTimer] = useState(0);
   const [tempList, setTempList] = useState([]);
   const [orderPrice, setOrderPrice] = useState(0);
   const [recipeData, setRecipeData] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     if (cartList.length > 0) {
@@ -33,7 +35,15 @@ export default function Cart({
     setResetTimer((prevResetTimer) => prevResetTimer + 1);
   }, [cartList]);
 
-  const drinkList = cartList.map((cartItem) => {
+  useEffect(() => {
+    const price = tempList.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+    setOrderPrice(price);
+  }, [tempList]);
+
+  const drinkList = tempList.map((cartItem) => {
     return {
       drinkId: cartItem.drinkId,
       name: cartItem.name,
@@ -48,36 +58,56 @@ export default function Cart({
     drinks: [...drinkList],
   };
 
-  // const cardData = {
-  //   ...postData,
-  //   payment: 'CARD',
-  // };
+  const cardData = {
+    ...postData,
+    payment: 'CARD',
+  };
 
-  // console.log(cardData);
-
-  useEffect(() => {
-    const price = cartList.reduce(
-      (total, item) => total + item.price * item.quantity,
-      0
-    );
-    setOrderPrice(price);
-  }, [cartList]);
-
-  const handlePaymentButton = () => {
-    setShowMode('payment');
+  const handlePaymentButtonClick = () => {
+    setModalType('payment');
     setTempList(cartList);
     setCartList([]);
   };
 
-  const handleCloseButton = () => {
+  const handleCloseButtonClick = () => {
     setCartList(tempList);
     setTempList([]);
-    setShowMode('');
+    setModalType('');
   };
 
-  const handleCashButton = () => {
-    setShowMode('cash');
+  const handleCashButtonClick = () => {
+    setModalType('cash');
     setCartList(tempList);
+  };
+
+  const handleCardButtonClick = () => {
+    setTempList([]);
+
+    fetch('http://52.79.68.54:8080/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(cardData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          return response.text().then((text) => {
+            throw new Error(text);
+          });
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setRecipeData(data);
+        setModalType('recipe');
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+        setModalType('error');
+      });
+
+    setModalType('card');
   };
 
   return (
@@ -105,44 +135,65 @@ export default function Cart({
             <button
               type="button"
               className={styles.payment}
-              onClick={handlePaymentButton}
+              onClick={handlePaymentButtonClick}
             >
               결제하기
             </button>
           </div>
         </div>
       )}
-      {showMode === 'payment' && (
+      {modalType === 'payment' && (
         <>
           <Dim />
           <PaymentModal
-            setShowMode={setShowMode}
-            handleCloseButton={handleCloseButton}
-            handleCashButton={handleCashButton}
+            handleCloseButton={handleCloseButtonClick}
+            handleCardButtonClick={handleCardButtonClick}
+            handleCashButton={handleCashButtonClick}
           />
         </>
       )}
-      {showMode === 'card' && (
-        <>
-          <Dim />
-          <Loading />
-        </>
+      {modalType === 'card' && recipeData ? (
+        <Recipe
+          setModalType={setModalType}
+          recipeData={recipeData}
+          setRecipeData={setRecipeData}
+        />
+      ) : (
+        modalType === 'card' && (
+          <>
+            <Dim />
+            <Loading />
+          </>
+        )
       )}
-      {showMode === 'cash' && (
+      {modalType === 'cash' && (
         <>
           <Dim />
           <CashModal
-            setShowMode={setShowMode}
+            setModalType={setModalType}
             orderPrice={orderPrice}
             postData={postData}
             setRecipeData={setRecipeData}
+            setCartList={setCartList}
           />
         </>
       )}
-      {showMode === 'recipe' && recipeData ? (
-        <Recipe setShowMode={setShowMode} recipeData={recipeData} />
+      {modalType === 'recipe' && recipeData ? (
+        <Recipe
+          setModalType={setModalType}
+          recipeData={recipeData}
+          setRecipeData={setRecipeData}
+        />
       ) : (
-        <p>loading...</p>
+        <div className={styles.nothing} />
+      )}
+
+      {modalType === 'error' && (
+        <ErrorMessage
+          setModalType={setModalType}
+          setRecipeData={setRecipeData}
+          errorMessage={errorMessage}
+        />
       )}
     </div>
   );

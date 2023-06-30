@@ -2,12 +2,12 @@ import styles from './MenuItem.module.css';
 
 export default function MenuItem({
   menu,
-  setShowMode,
+  setModalType,
   handleItemSelect,
   isPopularDrink,
 }) {
   const handleClickWrapper = (key) => {
-    setShowMode('menu');
+    setModalType('menu');
     handleItemSelect(key);
   };
 

@@ -2,7 +2,7 @@ import styles from './Decision.module.css';
 import Cancel from '../../Cancel/Cancel';
 
 export default function Decision({
-  setShowMode,
+  setModalType,
   cartItem,
   handleAddCartItem,
   setCartInAnimate,
@@ -12,13 +12,13 @@ export default function Decision({
     setCartInAnimate(true);
 
     setTimeout(() => {
-      setShowMode('');
+      setModalType('');
     }, 1000);
   };
 
   return (
     <div className={styles.decision}>
-      <Cancel className={styles.cancel} setShowMode={() => setShowMode('')} />
+      <Cancel className={styles.cancel} setModalType={() => setModalType('')} />
       <button
         className={styles.add}
         type="button"
