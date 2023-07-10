@@ -12,6 +12,12 @@ kiosk project team 04
 
 <br>
 
+## ERD
+
+<img src="kiosk-erd(v.1.0).png" width=900>
+
+<br>
+
 ## Ground Rule
 
 ### 💬 Communication
